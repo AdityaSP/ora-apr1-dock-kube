@@ -511,3 +511,164 @@ CONTAINER ID        IMAGE                                                       
 
 /home/docker>
 
+
+-----------------------------------------------------------------------------------------------
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                           COMMAND                  CREATED             STATUS              PORTS                                                               NAMES
+8db6bd3922ee        nginx                                                           "nginx -g 'daemon ..."   5 minutes ago       Up 5 minutes        80/tcp                                                              vibrant_davinci
+3ab7ad7ceea6        nginx                                                           "nginx -g 'daemon ..."   12 minutes ago      Up 12 minutes       0.0.0.0:883->80/tcp                                                 elegant_wescoff
+13f158a563b8        nginx                                                           "nginx -g 'daemon ..."   23 minutes ago      Up 23 minutes       80/tcp                                                              unruffled_khorana
+
+/home/docker> docker container exec 8db6bd3922ee ls
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+/home/docker> ls /
+bin  d     dev  home  lib    linuxrc  mnt  proc  run   srv  tmp  var
+c    data  etc  init  lib64  media    opt  root  sbin  sys  usr
+
+/home/docker> docker container exec 8db6bd3922ee touch /tmp/f1.txt
+
+/home/docker> ls /tmp/f1.txt
+ls: cannot access '/tmp/f1.txt': No such file or directory
+
+/home/docker> docker container exec 8db6bd3922ee ls /tmp/f1.txt
+/tmp/f1.txt
+
+/home/docker> docker container exec -it 8db6bd3922ee sh
+# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+# bash
+root@8db6bd3922ee:/# cd /usr/share/
+X11/             dict/            java/            pam/
+adduser/         doc/             keyrings/        pam-configs/
+base-files/      doc-base/        libc-bin/        perl5/
+base-passwd/     dpkg/            lintian/         pixmaps/
+bash-completion/ fontconfig/      locale/          tabset/
+bug/             fonts/           man/             terminfo/
+common-licenses/ gcc-6/           menu/            xml/
+debconf/         gdb/             misc/            zoneinfo/
+debianutils/     info/            nginx/
+root@8db6bd3922ee:/# cd /usr/share/nginx/html/
+50x.html    index.html
+root@8db6bd3922ee:/# cd /usr/share/nginx/html/
+root@8db6bd3922ee:/usr/share/nginx/html# ls
+50x.html  index.html
+root@8db6bd3922ee:/usr/share/nginx/html# cat index.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+root@8db6bd3922ee:/usr/share/nginx/html# ls
+50x.html  index.html
+root@8db6bd3922ee:/usr/share/nginx/html# vi mypage.html
+bash: vi: command not found
+root@8db6bd3922ee:/usr/share/nginx/html# ps
+bash: ps: command not found
+root@8db6bd3922ee:/usr/share/nginx/html# cat > mypage.html
+<h1> My PRODUCT CODE </h1>
+^C
+root@8db6bd3922ee:/usr/share/nginx/html# cat mypage.html
+<h1> My PRODUCT CODE </h1>
+root@8db6bd3922ee:/usr/share/nginx/html# ls
+50x.html  index.html  mypage.html
+root@8db6bd3922ee:/usr/share/nginx/html# exit
+exit
+# exit
+
+/home/docker> docker container inspect  8db6bd3922ee | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.19",
+                    "IPAddress": "172.17.0.19",
+
+/home/docker> curl "172.17.0.19"
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+/home/docker> curl 172.17.0.19/mypage.html
+<h1> My PRODUCT CODE </h1>
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                           COMMAND                  CREATED             STATUS              PORTS                                                               NAMES
+8db6bd3922ee        nginx                                                           "nginx -g 'daemon ..."   16 minutes ago      Up 16 minutes       80/tcp                                                              vibrant_davinci
+3ab7ad7ceea6        nginx                                                           "nginx -g 'daemon ..."   23 minutes ago      Up 23 minutes       0.0.0.0:883->80/tcp                                                 elegant_wescoff
+13f158a563b8        nginx                                                           "nginx -g 'daemon ..."   34 minutes ago      Up 34 minutes       80/tcp                                                              unruffled_khorana
+
+/home/docker> docker container exec -it 3ab7ad7ceea6 bash
+root@3ab7ad7ceea6:/# cd /usr/share/nginx/html/
+root@3ab7ad7ceea6:/usr/share/nginx/html# ls
+50x.html  index.html
+root@3ab7ad7ceea6:/usr/share/nginx/html# cat > mypage.html
+<h1> My Code </h1>
+^C
+root@3ab7ad7ceea6:/usr/share/nginx/html#
+root@3ab7ad7ceea6:/usr/share/nginx/html# cat mypage.html
+<h1> My Code </h1>
+root@3ab7ad7ceea6:/usr/share/nginx/html# exit
+exit
+
+/home/docker>
+
