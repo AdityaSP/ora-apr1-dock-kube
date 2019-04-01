@@ -1,1 +1,248 @@
 
+login as: docker
+docker@192.168.99.104's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ ps -ef | grep dockerd
+root      2418     1  7 15:51 ?        00:02:15 /usr/bin/dockerd -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --tlsverify --tlscacert /etc/docker/ca.pem --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label provider=virtualbox --insecure-registry 10.96.0.0/12
+docker   12315  7468  0 16:19 pts/0    00:00:00 grep dockerd
+$ ping google.com
+PING google.com (216.58.196.174): 56 data bytes
+64 bytes from 216.58.196.174: seq=0 ttl=53 time=59.145 ms
+64 bytes from 216.58.196.174: seq=1 ttl=53 time=78.751 ms
+^C
+--- google.com ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 59.145/68.948/78.751 ms
+$ id
+uid=1001(docker) gid=1001(docker) groups=1001(docker),10(wheel),1000(rkt),1015(rkt-admin),1016(vboxsf)
+$ pwd
+/home/docker
+$ export PS1='\n$PWD> '
+
+/home/docker>
+
+/home/docker> ps -ef | grep dockerd
+root      2418     1  7 15:51 ?        00:08:14 /usr/bin/dockerd -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock --tlsverify --tlscacert /etc/docker/ca.pem --tlscert /etc/docker/server.pem --tlskey /etc/docker/server-key.pem --label provider=virtualbox --insecure-registry 10.96.0.0/12
+docker   26256  7468  0 17:34 pts/0    00:00:00 grep dockerd
+
+/home/docker> docker version
+Client:
+ Version:      17.09.0-ce
+ API version:  1.32
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:39:28 2017
+ OS/Arch:      linux/amd64
+
+Server:
+ Version:      17.09.0-ce
+ API version:  1.32 (minimum version 1.12)
+ Go version:   go1.8.3
+ Git commit:   afdb6d4
+ Built:        Tue Sep 26 22:45:38 2017
+ OS/Arch:      linux/amd64
+ Experimental: false
+
+/home/docker> docker
+
+Usage:  docker COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default
+                           "/home/docker/.docker")
+  -D, --debug              Enable debug mode
+      --help               Print usage
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level
+                           ("debug"|"info"|"warn"|"error"|"fatal")
+                           (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default
+                           "/home/docker/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "/home/docker/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "/home/docker/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+
+/home/docker>
+
+/home/docker> docker image pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+27833a3ba0a5: Downloading  4.832MB/22.5MB
+e83729dd399a: Downloading  2.997MB/22.28MB
+ebc6a67df66d: Download complete
+^C
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               alpine              32a037976344        3 weeks ago         16.1MB
+nginx               stable              e706cb01fa6b        3 weeks ago         109MB
+
+/home/docker> docker image pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+27833a3ba0a5: Pull complete
+e83729dd399a: Pull complete
+ebc6a67df66d: Pull complete
+Digest: sha256:c8a861b8a1eeef6d48955a6c6d5dff8e2580f13ff4d0f549e082e7c82a8617a2
+Status: Downloaded newer image for nginx:latest
+
+/home/docker>
+
+/home/docker> docker container run nginx
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                          PORTS                                                                NAMES
+968b6fb620b8        nginx                                                            "nginx -g 'daemon ..."   4 minutes ago       Exited (0) About a minute ago                                                                        peaceful_wright
+db3f83e558cc        ghost:1-alpine                                                   "docker-entrypoint..."   2 weeks ago         Exited (0) 2 weeks ago                                                                               ghost
+7ded0284b1d4        mysql:5.7                                                        "docker-entrypoint..."   2 weeks ago         Exited (137) 2 weeks ago        3306/tcp, 33060/tcp                                                  blog-db
+
+/home/docker> docker container start 968b6fb620b8
+968b6fb620b8
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+968b6fb620b8        nginx                                                            "nginx -g 'daemon ..."   5 minutes ago       Up 4 seconds        80/tcp                                                               peaceful_wright
+
+/home/docker> docker container rm db3f83e558cc
+db3f83e558cc
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                     PORTS                                                                NAMES
+968b6fb620b8        nginx                                                            "nginx -g 'daemon ..."   7 minutes ago       Up About a minute          80/tcp                                                               peaceful_wright
+7ded0284b1d4        mysql:5.7                                                        "docker-entrypoint..."   2 weeks ago         Exited (137) 2 weeks ago   3306/tcp, 33060/tcp                                                  blog-db
+
+/home/docker> docker container rm 968b6fb620b8
+Error response from daemon: You cannot remove a running container 968b6fb620b8a79b59e5397c497013d439ba59f84eb52a25b63c24241427034a. Stop the container before attempting removal or force remove
+
+/home/docker> docker container rm -f 968b6fb620b8
+968b6fb620b8
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS                     PORTS                                                                NAMES
+7ded0284b1d4        mysql:5.7                                                        "docker-entrypoint..."   2 weeks ago         Exited (137) 2 weeks ago   3306/tcp, 33060/tcp                                                  blog-db
+
+/home/docker> docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+3ff245cf60e59e53cf3591dc0c0b446d833447b261ece9c8ab7d785c92a72172
+3f717cced8b4b34f461d635dfab6d2851ad7d2b5b090684ddb29e04b9d292b02
+ead624cadf68b2ba6fbe188eed7db4ffca72ef352d26c814ddd647a5499381e4
+877ce5ba5af08a7dba8fd13fc973e78b64304866ef0f8f0b5fb14603a70e9723
+e4f7952d7c497de5895d5d3119bab70d6ce041aa6d80770335f4b6402cf14355
+8dfb2b419ca535bf0dc2184a98b5426229033c0dd0375c4c1d15c1e79266b78f
+350efba9026b0977c23ffaf3f7a56ad606f986f3e3f041b2a6c46299b932d720
+95cd683c82989a7612ced507bfa61085a00d6e23594588f323395edb39367357
+430c5f8f6460706663a50b513f1def6011e1c50038a04d73052746780018a06b
+3a99276dcf668c7dda98590b3f099ef6900792cb1f46bcc9bb82d2ce216f8952
+d9be8b7e1b89e7a2984d7e901421aac0cac3c0ccf80a222da5cd64f58bee6e57
+684e16651af648e9630d124228de6fe8bcce471860262ff9dd32bab9d096dccc
+75ee9a769b173ec92eaf43f9976eea4473193d29ce8e670f2d1dc67d11e19d19
+57502d682a0aa4fae83e5b32051f95dc3f24a69a0ac80573681022d6c72d0542
+fb605e3b5f384729dd17b3fec1c19f3a526d5920547d902ac8f1e45fe14c1783
+06514f1f715a4a417eba4f67c380d1496e9b9d7721e227117e9c804cf0e1aada
+b3e40076f4151f43427e756098bbae347e25ec1f86a251287672279a123c4860
+1f43f2234ad944e54848d8b17f939e3d34eec71f75e477b9148d674702940cc9
+ff3700cebc16cfad00dac37b542130e04411eab72353d54c569f71c48d642061
+eb8d3eb43da58591841b273afb6a41ff07a55ab7c5356d566ae6ea79a6745758
+254ea59d1c641695a1067176b00e10cbb64908013a6d3422243b3e79f987d202
+5d7018b7fd2983f8984cc06ead5eb5f31a9297fe3e62f5b1884ce54711fb1f8f
+b9cec6c4931e28468a2a9f58c5e13b030b2d1311c1b9456f0cc5341f443acb9e
+79d4fdf26b771cc74d29ba9d9abb353865fea996ca370e69f84ad61dcbc51ec7
+60883cdb5e2fdf642f5536a11054a8373be2df493084d817f5d74435522fdf92
+52103ad221da4696069fd2ba1d67c7165e7ddce4f37088657919723ab873128c
+6b7bbed22eb6462d358c95f521ea909b6803427bc2fc0d518393cde9a0c46094
+de556f05043c083c5276b98f220362f8c276c3e703cee4f8e00a7a9f0eef63d6
+e0a3d6412d151b1395485439b4d4fca1e7577a2f5f41c0b5dd404ae2059bf9e3
+9317bcbcb82932304c2330897f20e29f253584a4abd1e73c5daa4c627aa8e652
+c784416607fc456abf167e294612191e17f83407bfe6f1f56f6b1447a25328d2
+24c3b84a26477e6bca7ad5a89fdde98ea4c5775ccef0c9ef00dfe3e1b6aa8e6f
+e2ac3ea32890b358dae2df56570f65c5dc2bfc3d9f0801c5b4da3a06cecd7ad3
+39a3bdccf9c459d8488dc00d157864451bd684bb9c348f16b12e1936b51fc764
+7ded0284b1d4e2dc5fbcf34135eef386eb544e833d287292389c8be239475d34
+
+Total reclaimed space: 6.958MB
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker>
+
+
+---------------------------------------------------------------------------------------
