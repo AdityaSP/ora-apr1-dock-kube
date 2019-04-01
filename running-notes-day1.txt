@@ -1407,3 +1407,193 @@ ac08ce6cacda        56 seconds ago      ping google.com                         
 <missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB         
 
 /home/docker>
+
+--------------------------------------------------------------------------------------------
+
+
+/home/docker> ls
+
+/home/docker> ls
+
+/home/docker> cd /c
+
+/c> ls
+Users
+
+/c> cd Users/
+
+/c/Users> ls
+'All Users'  'Default User'     'Dell lap'   desktop.ini       myfolder
+ Default      Default.migrated   Public      docker-workshop
+
+/c/Users> cd Dell\ lap/
+
+/c/Users/Dell lap> cd docker-workshop/
+
+/c/Users/Dell lap/docker-workshop> cd apr1/
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ dockers-slightedge-apr1-us.pptx  '~$dockers-slightedge-apr1-us.pptx'
+
+/c/Users/Dell lap/docker-workshop/apr1> mkdir alpine-apache
+
+/c/Users/Dell lap/docker-workshop/apr1>
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache/
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -f Dockerfile -t alpine-apach .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/3 : RUN apk update
+ ---> Running in 4339dba3c4c9
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/community/x86_64/APKINDEX.tar.gz
+v3.9.2-48-g471cf80f4f [http://dl-cdn.alpinelinux.org/alpine/v3.9/main]
+v3.9.2-49-g87ea954c9b [http://dl-cdn.alpinelinux.org/alpine/v3.9/community]
+OK: 9758 distinct packages available
+ ---> 206fbb661679
+Removing intermediate container 4339dba3c4c9
+Step 3/3 : RUN apk add apache2
+ ---> Running in d40f0a03a56f
+(1/6) Installing libuuid (2.33-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r5)
+(5/6) Installing pcre (8.42-r1)
+(6/6) Installing apache2 (2.4.38-r2)
+Executing apache2-2.4.38-r2.pre-install
+Executing busybox-1.29.3-r10.trigger
+OK: 9 MiB in 20 packages
+ ---> d0251e20118b
+Removing intermediate container d40f0a03a56f
+Successfully built d0251e20118b
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              5cb3aa00f899        3 weeks ago         5.53MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image history alpine-apache
+IMAGE               CREATED             CREATED BY                                      SIZE               COMMENT
+d0251e20118b        4 minutes ago       /bin/sh -c apk add apache2                      3.59MB        
+206fbb661679        4 minutes ago       /bin/sh -c apk update                           1.31MB        
+5cb3aa00f899        3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B            
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB        
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls alpine-ap                       ache
+REPOSITORY          TAG                 IMAGE ID            CREATED                                    SIZE
+alpine-apache       latest              d0251e20118b        5 minutes ago                              10.4MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls | grep 20                       6fbb661679
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls -a| grep                        206fbb661679
+<none>                                                           <none>                                     206fbb661679        6 minutes ago       6.84MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -t alpine-apache .           Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/3 : RUN apk update
+ ---> Using cache
+ ---> 206fbb661679
+Step 3/3 : RUN apk add apache2
+ ---> Using cache
+ ---> d0251e20118b
+Successfully built d0251e20118b
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -t alpine-apache .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/3 : RUN apk update
+ ---> Using cache
+ ---> 206fbb661679
+Step 3/3 : RUN apk add apache2
+ ---> Using cache
+ ---> d0251e20118b
+Successfully built d0251e20118b
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build --no-cache -t alpine-apache .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/3 : RUN apk update
+ ---> Running in 7dfcfd9c0893
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.9/community/x86_64/APKINDEX.tar.gz
+v3.9.2-48-g471cf80f4f [http://dl-cdn.alpinelinux.org/alpine/v3.9/main]
+v3.9.2-49-g87ea954c9b [http://dl-cdn.alpinelinux.org/alpine/v3.9/community]
+OK: 9758 distinct packages available
+ ---> d49790d6ab41
+Removing intermediate container 7dfcfd9c0893
+Step 3/3 : RUN apk add apache2
+ ---> Running in e80146c931a5
+(1/6) Installing libuuid (2.33-r0)
+(2/6) Installing apr (1.6.5-r0)
+(3/6) Installing expat (2.2.6-r0)
+(4/6) Installing apr-util (1.6.1-r5)
+(5/6) Installing pcre (8.42-r1)
+(6/6) Installing apache2 (2.4.38-r2)
+Executing apache2-2.4.38-r2.pre-install
+Executing busybox-1.29.3-r10.trigger
+OK: 9 MiB in 20 packages
+ ---> 16afc3b0b270
+Removing intermediate container e80146c931a5
+Successfully built 16afc3b0b270
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image history alpine-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+16afc3b0b270        10 seconds ago      /bin/sh -c apk add apache2                      3.59MB        
+d49790d6ab41        14 seconds ago      /bin/sh -c apk update                           1.31MB        
+5cb3aa00f899        3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B            
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB        
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> #d0251e20118b 206fbb661679
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls -a | grep d0251e20118b
+<none>                                                           <none>              d0251e20118b        10 minutes ago       10.4MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls -a | grep 206fbb661679
+<none>                                                           <none>              206fbb661679        10 minutes ago       6.84MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+deleted: sha256:d0251e20118b673d7f1f0d4b58fabcf0c94f508f2ed6eaa9d4b3a53b476a2b15
+deleted: sha256:e963579e69398474a724b80cd44510df5161d6710a62a98a706018f6a1b41ea6
+deleted: sha256:206fbb661679f47372e77ad2d4dbe43d7b3deffa3b4866e0ff64af3b54e5d7aa
+deleted: sha256:32ad86220001ba43a84b6a4f5ba018339a46d70aceb5ffaff3c625c6d8ca6e45
+
+Total reclaimed space: 4.899MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image ls -a | grep d0251e20118b
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
