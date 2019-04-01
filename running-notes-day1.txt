@@ -246,3 +246,268 @@ CONTAINER ID        IMAGE                                                       
 
 
 ---------------------------------------------------------------------------------------
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container ls -a| grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/home/docker> docker container run -d nginx
+13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+13f158a563b8        nginx                                                            "nginx -g 'daemon ..."   8 seconds ago       Up 7 seconds        80/tcp                                                               unruffled_khorana
+
+/home/docker> docker container inspect 13f158a563b8
+[
+    {
+        "Id": "13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02",
+        "Created": "2019-04-01T18:15:42.020245381Z",
+        "Path": "nginx",
+        "Args": [
+            "-g",
+            "daemon off;"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2020,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-04-01T18:15:42.552730542Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:2bcb04bdb83f7c5dc30f0edaca1609a716bda1c7d2244d4f5fbbdfef33da366c",
+        "ResolvConfPath": "/var/lib/docker/containers/13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02/hostname",
+        "HostsPath": "/var/lib/docker/containers/13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02/hosts",
+        "LogPath": "/var/lib/docker/containers/13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02/13f158a563b8d034211229190fb6a28f23730817c2fdc8b98128b69424702a02-json.log",
+        "Name": "/unruffled_khorana",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/edea6f23ec6f4937788e8f440b8b0ed9d2d604861dfebc77fb206f1c08777325-init/diff:/var/lib/docker/overlay2/f1c53cdf84d2f6275223304e17fd70aa11701d7733da3cfc51f6cdeef65e3207/diff:/var/lib/docker/overlay2/f6a8f58f96f179c7154115040d67e95ace281d885243ba0c1fbb6ee12503f695/diff:/var/lib/docker/overlay2/4109b70c300b5a4a8e0b41d04bf5182a53cb7dbda605612f9c8cc43292fa3bb8/diff",
+                "MergedDir": "/var/lib/docker/overlay2/edea6f23ec6f4937788e8f440b8b0ed9d2d604861dfebc77fb206f1c08777325/merged",
+                "UpperDir": "/var/lib/docker/overlay2/edea6f23ec6f4937788e8f440b8b0ed9d2d604861dfebc77fb206f1c08777325/diff",
+                "WorkDir": "/var/lib/docker/overlay2/edea6f23ec6f4937788e8f440b8b0ed9d2d604861dfebc77fb206f1c08777325/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "13f158a563b8",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.15.10-1~stretch",
+                "NJS_VERSION=1.15.10.0.3.0-1~stretch"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "ArgsEscaped": true,
+            "Image": "nginx",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGTERM"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "5d31f1f13dcf533b6e596735d921bdbda87dd6fdedbab15acec548aa8aea7b6c",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "80/tcp": null
+            },
+            "SandboxKey": "/var/run/docker/netns/5d31f1f13dcf",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "479768528ba2b23ef503b076032c318fb129c4da78a1710a6776cfd0bac46c75",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.17",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:11",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "ef89778ac758dd4ec119e822cc918abaef402999105f2a71204f5e7f4ffad7de",
+                    "EndpointID": "479768528ba2b23ef503b076032c318fb129c4da78a1710a6776cfd0bac46c75",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.17",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:11",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+
+/home/docker> docker container inspect 13f158a563b8 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.17",
+                    "IPAddress": "172.17.0.17",
+
+/home/docker> curl 172.17.0.17
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+
+/home/docker> ping 172.17.0.17
+PING 172.17.0.17 (172.17.0.17): 56 data bytes
+64 bytes from 172.17.0.17: seq=0 ttl=64 time=0.104 ms
+64 bytes from 172.17.0.17: seq=1 ttl=64 time=0.113 ms
+64 bytes from 172.17.0.17: seq=2 ttl=64 time=0.093 ms
+64 bytes from 172.17.0.17: seq=3 ttl=64 time=0.268 ms
+^C
+--- 172.17.0.17 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.093/0.144/0.268 ms
+
+/home/docker> docker container run -d -p 8383:80 nginx
+3ab7ad7ceea67d9b624e1cac2fa4a2078525f1cea03d74c717e19141ce6cb0fb
+
+/home/docker> docker container ls | grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+3ab7ad7ceea6        nginx                                                            "nginx -g 'daemon ..."   19 seconds ago      Up 18 seconds       0.0.0.0:8383->80/tcp                                                 elegant_wescoff
+13f158a563b8        nginx                                                            "nginx -g 'daemon ..."   11 minutes ago      Up 11 minutes       80/tcp                                                               unruffled_khorana
+
+/home/docker> docker container inspect 3ab7ad7ceea6 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.18",
+                    "IPAddress": "172.17.0.18",
+
+/home/docker>
+
