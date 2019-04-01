@@ -21,22 +21,29 @@ uncheck "Hyper-V"
 ------------------------------------------------------------------
 
 Requires Virutalbox - If it is already installed then there is no need for a new setup. Else download and install from virtualbox.org
-
+### 0. Install Virtual box
+       go to virtualbox.org download the latest version and install
 ------------------------------------------------------------------
 ### 1. minikube
-
+- For Windows
           download "minikube-windows-amd64" from https://github.com/kubernetes/minikube/releases/tag/v0.25.0
 
           2. rename the exe to minikube.exe
 
           3. put the directory where minikube is saved into the path environment variable 
 
+- For MacOS Execute the below
+          curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+          
 ------------------------------------------------------------------
 
 ### 4. minikube start
+- For Windows
 From the command prompt on windows execute "minikube start"
 Please stay on C drive while doing this. Also start command prompt as an administrator
 
+- For MacOS
+execute "minikube start" from any location
 ------------------------------------------------------------------
 ### 5. kubectl
 
