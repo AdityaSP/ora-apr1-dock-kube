@@ -2260,3 +2260,826 @@ c7088582c9c36df0baa8478a350cc813ab62b35def34a0e7240775bf32a07df5
 
 /home/docker> docker container run -d -v /tmp/data:/var/log/apache2 alpine-apache
 
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+/home/docker> docker container run -d --name w1 alpine-apache
+297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941
+
+/home/docker> docker container run -d --name w2 alpine-apache
+1d25d466fdcbb8a83422a9fa83fc2e4b050b6edc3ea80d9fce75b705c8210903
+
+/home/docker> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.17",
+                    "IPAddress": "172.17.0.17",
+
+/home/docker> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.18",
+                    "IPAddress": "172.17.0.18",
+
+/home/docker> ping -c1 "172.17.0.17"
+PING 172.17.0.17 (172.17.0.17): 56 data bytes
+64 bytes from 172.17.0.17: seq=0 ttl=64 time=0.341 ms
+
+--- 172.17.0.17 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.341/0.341/0.341 ms
+
+/home/docker> ping -c1 "172.17.0.18"
+PING 172.17.0.18 (172.17.0.18): 56 data bytes
+64 bytes from 172.17.0.18: seq=0 ttl=64 time=0.494 ms
+
+--- 172.17.0.18 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.494/0.494/0.494 ms
+
+/home/docker> ifconfig
+br-ba6e85898f1b Link encap:Ethernet  HWaddr 02:42:73:03:AE:63
+          inet addr:172.18.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+br-cc3446b25be0 Link encap:Ethernet  HWaddr 02:42:4B:3E:FD:7B
+          inet addr:172.20.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+br-d01c4d3ff3d3 Link encap:Ethernet  HWaddr 02:42:31:F8:5C:AD
+          inet addr:172.19.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+docker0   Link encap:Ethernet  HWaddr 02:42:89:95:CC:2E
+          inet addr:172.17.0.1  Bcast:0.0.0.0  Mask:255.255.0.0
+          inet6 addr: fe80::42:89ff:fe95:cc2e/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:319423 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:327884 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:43728409 (41.7 MiB)  TX bytes:811019907 (773.4 MiB)
+
+eth0      Link encap:Ethernet  HWaddr 08:00:27:32:6C:A6
+          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe32:6ca6/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:226479 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:27890 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:307837473 (293.5 MiB)  TX bytes:7395827 (7.0 MiB)
+
+eth1      Link encap:Ethernet  HWaddr 08:00:27:C5:85:69
+          inet addr:192.168.99.105  Bcast:192.168.99.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fec5:8569/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:16956 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:9847 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1490981 (1.4 MiB)  TX bytes:1337578 (1.2 MiB)
+
+eth2      Link encap:Ethernet  HWaddr 08:00:27:9F:E2:6C
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Interrupt:17 Base address:0xd260
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:1554638 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1554638 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1
+          RX bytes:1067601031 (1018.1 MiB)  TX bytes:1067601031 (1018.1 MiB)
+
+veth01931da Link encap:Ethernet  HWaddr 4A:6C:3F:42:54:CB
+          inet6 addr: fe80::486c:3fff:fe42:54cb/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:50302 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:52296 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:13843849 (13.2 MiB)  TX bytes:8736046 (8.3 MiB)
+
+veth218f9ff Link encap:Ethernet  HWaddr 4A:16:D7:D1:F9:EE
+          inet6 addr: fe80::4816:d7ff:fed1:f9ee/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:11226 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:11288 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:2251644 (2.1 MiB)  TX bytes:1188725 (1.1 MiB)
+
+veth2e29706 Link encap:Ethernet  HWaddr 26:DE:B9:82:23:15
+          inet6 addr: fe80::24de:b9ff:fe82:2315/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:100 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:5626 (5.4 KiB)
+
+veth3646ae4 Link encap:Ethernet  HWaddr C6:D7:6D:FE:F8:7E
+          inet6 addr: fe80::c4d7:6dff:fefe:f87e/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:10 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:118 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:516 (516.0 B)  TX bytes:7016 (6.8 KiB)
+
+veth484c0be Link encap:Ethernet  HWaddr 06:8B:3B:DB:DA:93
+          inet6 addr: fe80::48b:3bff:fedb:da93/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:25562 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:26232 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:88964377 (84.8 MiB)  TX bytes:43946310 (41.9 MiB)
+
+veth6353a0a Link encap:Ethernet  HWaddr 02:9F:98:8A:BA:F0
+          inet6 addr: fe80::9f:98ff:fe8a:baf0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:10 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:104 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:760 (760.0 B)  TX bytes:6106 (5.9 KiB)
+
+veth7c8eebe Link encap:Ethernet  HWaddr 6E:96:D5:DA:C2:B9
+          inet6 addr: fe80::6c96:d5ff:feda:c2b9/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:2040 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:2182 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:166290 (162.3 KiB)  TX bytes:867404 (847.0 KiB)
+
+veth860be1e Link encap:Ethernet  HWaddr 3E:B8:B9:05:65:12
+          inet6 addr: fe80::3cb8:b9ff:fe05:6512/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:51738 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:52199 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:5621974 (5.3 MiB)  TX bytes:16541656 (15.7 MiB)
+
+veth8a949ea Link encap:Ethernet  HWaddr 9E:E5:1A:02:C4:78
+          inet6 addr: fe80::9ce5:1aff:fe02:c478/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:3 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:20 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:182 (182.0 B)  TX bytes:1574 (1.5 KiB)
+
+veth926967d Link encap:Ethernet  HWaddr FE:74:5B:50:88:54
+          inet6 addr: fe80::fc74:5bff:fe50:8854/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:26712 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:27707 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:3281431 (3.1 MiB)  TX bytes:44303160 (42.2 MiB)
+
+vethb273f7c Link encap:Ethernet  HWaddr 52:3C:DF:98:06:94
+          inet6 addr: fe80::503c:dfff:fe98:694/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:9073 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:9924 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:871116 (850.6 KiB)  TX bytes:888836 (868.0 KiB)
+
+vethb33c875 Link encap:Ethernet  HWaddr 6E:D7:38:86:A7:39
+          inet6 addr: fe80::6cd7:38ff:fe86:a739/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:33591 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:33522 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:120023818 (114.4 MiB)  TX bytes:147737327 (140.8 MiB)
+
+vethba59e63 Link encap:Ethernet  HWaddr A6:53:E2:24:1C:78
+          inet6 addr: fe80::a453:e2ff:fe24:1c78/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:18680 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:24558 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:1336226 (1.2 MiB)  TX bytes:205640721 (196.1 MiB)
+
+vethba5ec04 Link encap:Ethernet  HWaddr EA:32:D5:A7:2D:57
+          inet6 addr: fe80::e832:d5ff:fea7:2d57/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:115717 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:112601 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:17120505 (16.3 MiB)  TX bytes:546306412 (520.9 MiB)
+
+vethccc2ff8 Link encap:Ethernet  HWaddr F6:98:EC:0B:D2:77
+          inet6 addr: fe80::f498:ecff:fe0b:d277/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:95 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:5388 (5.2 KiB)
+
+vethd6da1d6 Link encap:Ethernet  HWaddr 36:54:30:A7:2E:33
+          inet6 addr: fe80::3454:30ff:fea7:2e33/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:18173 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19789 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:1582890 (1.5 MiB)  TX bytes:1784572 (1.7 MiB)
+
+vethe7161ec Link encap:Ethernet  HWaddr 26:FE:96:EB:0C:6B
+          inet6 addr: fe80::24fe:96ff:feeb:c6b/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:3 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:20 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:182 (182.0 B)  TX bytes:1574 (1.5 KiB)
+
+
+/home/docker> ping -c1 "172.17.0.18"
+PING 172.17.0.18 (172.17.0.18): 56 data bytes
+64 bytes from 172.17.0.18: seq=0 ttl=64 time=0.200 ms
+
+--- 172.17.0.18 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.200/0.200/0.200 ms
+
+/home/docker> ping -c1 "172.17.0.17"
+PING 172.17.0.17 (172.17.0.17): 56 data bytes
+64 bytes from 172.17.0.17: seq=0 ttl=64 time=0.119 ms
+
+--- 172.17.0.17 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 0.119/0.119/0.119 ms
+
+/home/docker> docker container exec w1 ping -c2 "172.17.0.18"
+PING 172.17.0.18 (172.17.0.18): 56 data bytes
+64 bytes from 172.17.0.18: seq=0 ttl=64 time=0.309 ms
+64 bytes from 172.17.0.18: seq=1 ttl=64 time=0.136 ms
+
+--- 172.17.0.18 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.136/0.222/0.309 ms
+
+/home/docker>
+
+/home/docker> docker container run -d --name w3 alpine-apache
+e932155de0ffadaa909bc6956b269b153f6e38c129da22b1cfa6e033e8928389
+
+/home/docker> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.17",
+                    "IPAddress": "172.17.0.17",
+
+/home/docker> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.18",
+                    "IPAddress": "172.17.0.18",
+
+/home/docker> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "172.17.0.19",
+                    "IPAddress": "172.17.0.19",
+
+/home/docker> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+8cf88f783645        bridge              bridge              local
+f09381e2f190        host                host                local
+9cce334a36a7        none                null                local
+
+/home/docker> docker container inspect w1
+[
+    {
+        "Id": "297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941",
+        "Created": "2019-04-02T20:25:22.661688617Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "httpd",
+            "-D",
+            "FOREGROUND"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 10072,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2019-04-02T20:25:23.193265215Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:a37386df485019d95b12fe51cb39930e23a4068743a5a16be7275145a4cae226",
+        "ResolvConfPath": "/var/lib/docker/containers/297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941/hostname",
+        "HostsPath": "/var/lib/docker/containers/297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941/hosts",
+        "LogPath": "/var/lib/docker/containers/297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941/297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941-json.log",
+        "Name": "/w1",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/ff15480cdf9c5632a6991889ccc480fb19bcec4fc29c2f12702cd36272c83404-init/diff:/var/lib/docker/overlay2/abd764d8451d2ed6051cf252cf881d491abe35c8843f015906183dd8ab4d5b4d/diff:/var/lib/docker/overlay2/f96bb439efe0248f57241cdb1bd6257dd5baa1977946f63e1fc521bcc4e63239/diff:/var/lib/docker/overlay2/582153fd84dca76f3ae744a0e599dc4468d50f0bd6674253c3f2312c49cfd9af/diff:/var/lib/docker/overlay2/6ce117cd092de81b9fae88d7fb5815132c95246a7d22e1f06ef154cc50ec86ef/diff:/var/lib/docker/overlay2/001ba628ae969629cdfb9a799a7c57a2e909cbd8793424b6b94611ad5cca19ab/diff",
+                "MergedDir": "/var/lib/docker/overlay2/ff15480cdf9c5632a6991889ccc480fb19bcec4fc29c2f12702cd36272c83404/merged",
+                "UpperDir": "/var/lib/docker/overlay2/ff15480cdf9c5632a6991889ccc480fb19bcec4fc29c2f12702cd36272c83404/diff",
+                "WorkDir": "/var/lib/docker/overlay2/ff15480cdf9c5632a6991889ccc480fb19bcec4fc29c2f12702cd36272c83404/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [],
+        "Config": {
+            "Hostname": "297e54ac4f8a",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "APACHE_PORT=80"
+            ],
+            "Cmd": [
+                "httpd",
+                "-D",
+                "FOREGROUND"
+            ],
+            "ArgsEscaped": true,
+            "Image": "alpine-apache",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "eb5c125fc8336e7cdf622b2e87ee584e464e07452c93244aa9bfe28ff40c9a31",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {},
+            "SandboxKey": "/var/run/docker/netns/eb5c125fc833",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "cdcd78bf63b4d913771e7d89e76170704a43dec0eaf5c23d20b460405489a1e0",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.17",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:11:00:11",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "8cf88f783645910f9d18ee34ccc6d4e059c4df89739746460355344f6e31d03d",
+                    "EndpointID": "cdcd78bf63b4d913771e7d89e76170704a43dec0eaf5c23d20b460405489a1e0",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.17",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:11:00:11",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+
+/home/docker> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+8cf88f783645        bridge              bridge              local
+f09381e2f190        host                host                local
+9cce334a36a7        none                null                local
+
+/home/docker> docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "8cf88f783645910f9d18ee34ccc6d4e059c4df89739746460355344f6e31d03d",
+        "Created": "2019-04-02T15:11:49.989334875Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "04a378b39af31ee96035c61a3ec51b08d9095b0094e292f9faabff6310600e34": {
+                "Name": "k8s_POD_web-0_default_4f7f77c5-46da-11e9-8cd8-080027326ca6_3",
+                "EndpointID": "ae79ed250be0dd3b61d32afb166f87127e6a3dc7ac3fc002fe6343f1615095c2",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            },
+            "0e06ce5ecdd8d738b87b624fe32e6de049adc8c71ea8edd171f0272d773341ee": {
+                "Name": "k8s_POD_nginx-ingress-controller-zjd74_kube-system_ab42b3da-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "05d862d4cf79226cf3a2f9d01143ff8d0c20ee586ea566d6174610eaa0cdb578",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            },
+            "1a2cf258755041b0fa6c8df1a0d6aca41ced245fdf51cc1f5dbcd99a8cf070de": {
+                "Name": "k8s_POD_prometheus-deployment-79c7cf44fc-8bjw9_monitoring_39df4192-46df-11e9-8cd8-080027326ca6_2",
+                "EndpointID": "6b1d294c806e106c4d00c11e9efd66b7769b1fb24b7c5b206a553276a1b637cc",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "1d25d466fdcbb8a83422a9fa83fc2e4b050b6edc3ea80d9fce75b705c8210903": {
+                "Name": "w2",
+                "EndpointID": "2c6305240a9f38555bf8128febb710197e42d5644578f1db9c647205b4ba8caf",
+                "MacAddress": "02:42:ac:11:00:12",
+                "IPv4Address": "172.17.0.18/16",
+                "IPv6Address": ""
+            },
+            "287f4c5037f42807bdcdef2694bbbfb531ea7872471589bc9c4546df08563fd6": {
+                "Name": "k8s_POD_heapster-xnbjb_kube-system_aafb3c7c-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "e603c57abd7f3302a91fad5bb5e70cb1e91b4f34c61a361f13c96f75c344c442",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "297e54ac4f8a831024c1f2c792e3b3d5296156b7d969a0ea27e90b10d669f941": {
+                "Name": "w1",
+                "EndpointID": "cdcd78bf63b4d913771e7d89e76170704a43dec0eaf5c23d20b460405489a1e0",
+                "MacAddress": "02:42:ac:11:00:11",
+                "IPv4Address": "172.17.0.17/16",
+                "IPv6Address": ""
+            },
+            "3d37028323580ebc35f01befcb52ab367d6865d27fcc5900b2dedf4b4a9b6166": {
+                "Name": "k8s_POD_web-2_default_b38e5de0-46dd-11e9-8cd8-080027326ca6_3",
+                "EndpointID": "f62e64682b85848ae9c3aba981421fea0cdaaf60d364c9def3a24073311047b3",
+                "MacAddress": "02:42:ac:11:00:08",
+                "IPv4Address": "172.17.0.8/16",
+                "IPv6Address": ""
+            },
+            "60e05c306c30b7d1c1c4fd54f9f75eb9c84b15f4759818bb0d123dfc0b74ee62": {
+                "Name": "k8s_POD_default-http-backend-cvzhd_kube-system_ab6b020b-2f94-11e9-8d17-080027326ca6_29",
+                "EndpointID": "026f1a10d38a40eb6f136e1396d3ff1e63be71d2d0ae9dff415e210e44907886",
+                "MacAddress": "02:42:ac:11:00:0f",
+                "IPv4Address": "172.17.0.15/16",
+                "IPv6Address": ""
+            },
+            "9da9c590100edca3516fbc71022b0ba1958037728ba4400e1ad06beb98fbe8b2": {
+                "Name": "k8s_POD_monitoring-grafana-65757b9656-h4fbs_kube-system_abcaee65-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "7d767d19fb41d4daa6bdbb91e08e3d5a49673a67f3be2ba85b4362742ca19eeb",
+                "MacAddress": "02:42:ac:11:00:0d",
+                "IPv4Address": "172.17.0.13/16",
+                "IPv6Address": ""
+            },
+            "a69f0e7fd71a0a2cdaa2d9c72bc6dc35a9d85cdafd95af0947a5de9fcfe0ed88": {
+                "Name": "k8s_POD_metrics-server-bb9ffc6b8-c4bsh_kube-system_ac742fe8-2f94-11e9-8d17-080027326ca6_29",
+                "EndpointID": "5f3458324662dfc609b6198e170c69e8da250348ad2e67a47ce9d80f614cb173",
+                "MacAddress": "02:42:ac:11:00:07",
+                "IPv4Address": "172.17.0.7/16",
+                "IPv6Address": ""
+            },
+            "aa37bf3f81431042e03ab9f715b51dbc26ace484a2f9af9c5b5629317fb6b462": {
+                "Name": "k8s_POD_heapster-546c9964c6-2w8ld_kube-system_ac314ae9-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "a83bb54b4b7352353ad3fa579fed904ff0d16ebaf2e1b07bede04f483a80ea1f",
+                "MacAddress": "02:42:ac:11:00:0b",
+                "IPv4Address": "172.17.0.11/16",
+                "IPv6Address": ""
+            },
+            "c45b8d8a9520f1f4f2d2ed246aefbaf4cb3c4881531635088f6422fdf1d07d70": {
+                "Name": "k8s_POD_monitoring-influxdb-66946c9f58-h5lhw_kube-system_abf955f0-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "d2641f0be28554674f6d794e287cd640104a9c5e52c644fd9c86b0778bbfed82",
+                "MacAddress": "02:42:ac:11:00:0e",
+                "IPv4Address": "172.17.0.14/16",
+                "IPv6Address": ""
+            },
+            "e932155de0ffadaa909bc6956b269b153f6e38c129da22b1cfa6e033e8928389": {
+                "Name": "w3",
+                "EndpointID": "559f03f29c297e33ae85549becfcf667ea020bb8cc2e1bb8995de9714f375d6e",
+                "MacAddress": "02:42:ac:11:00:13",
+                "IPv4Address": "172.17.0.19/16",
+                "IPv6Address": ""
+            },
+            "eda2e38a6984d8373890d3628d242bbd803d381ebb05db180703123b0012103c": {
+                "Name": "k8s_POD_web-1_default_ca24e6e9-46db-11e9-8cd8-080027326ca6_3",
+                "EndpointID": "1c6f373742917312867ad2450ad03680ca06c8fe7e94b23933ba599918c11bfd",
+                "MacAddress": "02:42:ac:11:00:0c",
+                "IPv4Address": "172.17.0.12/16",
+                "IPv6Address": ""
+            },
+            "ef252ea01af01189e20232a1ba5ac28f17bc19ebbdc887368dbd1362327f2b33": {
+                "Name": "k8s_POD_influxdb-grafana-tx55c_kube-system_ab1bc183-2f94-11e9-8d17-080027326ca6_29",
+                "EndpointID": "bbe24c660758aeffaec6081ae5a2968ed670ed729736a56f7eccba7ecb1f9bbb",
+                "MacAddress": "02:42:ac:11:00:10",
+                "IPv4Address": "172.17.0.16/16",
+                "IPv6Address": ""
+            },
+            "f011db79334b0160f448de44e59ccc40b7613ad8b61d40105d647e3f8e448541": {
+                "Name": "k8s_POD_kube-dns-54cccfbdf8-f5fbr_kube-system_aba5849a-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "41c77de73e459b09a61da69ce1cdc6dac5db6d6a2bb9cb506a83383e84178bf3",
+                "MacAddress": "02:42:ac:11:00:09",
+                "IPv4Address": "172.17.0.9/16",
+                "IPv6Address": ""
+            },
+            "f475e6d0a33e274105357ddabe61aabad262fa55edb3bedd34aaaea1e9894f0f": {
+                "Name": "k8s_POD_tiller-deploy-5b7c59888b-6rbgl_kube-system_42cc5a34-3c10-11e9-a9d7-080027326ca6_21",
+                "EndpointID": "6bb2ad573bf5a14ba5aad1b302bc28ed0e4b2863fb30eb58ec5174dcc3bf1a17",
+                "MacAddress": "02:42:ac:11:00:0a",
+                "IPv4Address": "172.17.0.10/16",
+                "IPv6Address": ""
+            },
+            "f5c6571209ef8c5325d5ee29e91685b235ed933196e6aa021ad071260c418ec9": {
+                "Name": "k8s_POD_kubernetes-dashboard-77d8b98585-9cffv_kube-system_aae2ad11-2f94-11e9-8d17-080027326ca6_28",
+                "EndpointID": "5e5b6c5edc43f8648c5d1f0a89c5055316100cad59e8e15cf8e913e52c2e472a",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+
+/home/docker>
+
+/home/docker> ls
+
+/home/docker> docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+8cf88f783645        bridge              bridge              local
+f09381e2f190        host                host                local
+9cce334a36a7        none                null                local
+
+/home/docker> docker network create w1-w3-net
+31d49db3793aa27fe3e70a8b214655ce4c797356b70db4b693bc9e5685ac5dd0
+
+/home/docker> docker network inspect w1-w3-net
+[
+    {
+        "Name": "w1-w3-net",
+        "Id": "31d49db3793aa27fe3e70a8b214655ce4c797356b70db4b693bc9e5685ac5dd0",
+        "Created": "2019-04-02T20:41:45.69014797Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+/home/docker> #docker network inspect w1-w3-net
+
+/home/docker>
+
+/home/docker> docker network connect w1-w3-net w1
+
+/home/docker> docker network disconnect bridge w1
+
+/home/docker> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+
+/home/docker> docker network connect w1-w3-net w3
+
+/home/docker> docker network disconnect bridge w3
+
+/home/docker> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+
+/home/docker> docker container exec w1 ping -c2 172.18.0.3
+PING 172.18.0.3 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.134 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.234 ms
+
+--- 172.18.0.3 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.134/0.184/0.234 ms
+
+/home/docker> docker network create w2-w3-net
+80509ddab38c2fc092541238574ffc8fd4ada36ac37e5cfabc0c6e6b29b48e12
+
+/home/docker> docker network inspect w2-w3-net
+[
+    {
+        "Name": "w2-w3-net",
+        "Id": "80509ddab38c2fc092541238574ffc8fd4ada36ac37e5cfabc0c6e6b29b48e12",
+        "Created": "2019-04-02T20:48:02.067333487Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+/home/docker> docker network disconnect bridge w2
+
+/home/docker> docker network connect w2-w3-net w2
+
+/home/docker> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.19.0.2",
+
+/home/docker> docker network connect w2-w3-net w3
+
+/home/docker> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+                    "IPAddress": "172.19.0.3",
+
+/home/docker>
+
+/home/docker> docker container inspect w1 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.2",
+
+/home/docker> docker container inspect w2 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.19.0.2",
+
+/home/docker> docker container inspect w3 | grep -i ipaddress
+            "SecondaryIPAddresses": null,
+            "IPAddress": "",
+                    "IPAddress": "172.18.0.3",
+                    "IPAddress": "172.19.0.3",
+
+/home/docker> docker container exec w1 ping -c2 w3
+PING w3 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.125 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.206 ms
+
+--- w3 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.125/0.165/0.206 ms
+
+/home/docker> docker container exec w2 ping -c2 w3
+PING w3 (172.19.0.3): 56 data bytes
+64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.185 ms
+64 bytes from 172.19.0.3: seq=1 ttl=64 time=0.215 ms
+
+--- w3 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 0.185/0.200/0.215 ms
+
+/home/docker> docker container exec w1 ping -c2 w2
+ping: bad address 'w2'
+
+/home/docker>
+
+
