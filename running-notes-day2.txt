@@ -648,4 +648,131 @@ exec "$@"
 
 /c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
 
+----------------------------------------------------------------------------------------------------------
+
+
+/home/docker> env
+SSH_CONNECTION=192.168.99.1 53163 192.168.99.105 22
+EDITOR=/bin/vi
+USER=docker
+PAGER=/bin/more
+PWD=/home/docker
+HOME=/home/docker
+SSH_CLIENT=192.168.99.1 53163 22
+SSH_TTY=/dev/pts/0
+MAIL=/var/mail/docker
+TERM=xterm
+SHELL=/bin/bash
+SHLVL=1
+LOGNAME=docker
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+PS1=\n$PWD>
+_=/bin/env
+OLDPWD=/c/Users/Dell lap/docker-workshop/apr1/alpine-apache
+
+/home/docker>
+
+/home/docker> docker container run --rm alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=dbc11e5bc47b
+HOME=/root
+
+/home/docker> docker container run --rm -e APACHE_PORT=8080 alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=d3a2f0367594
+APACHE_PORT=8080
+HOME=/root
+
+/home/docker> cd -
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 9000/" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi docker-entrypoint.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen $APACHE_PORT/" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENV APACHE_PORT 80
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen $APACHE_PORT/" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -t alpine-apache .
+Sending build context to Docker daemon  4.096kB
+Step 1/8 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/8 : RUN apk update
+ ---> Using cache
+ ---> d49790d6ab41
+Step 3/8 : RUN apk add apache2
+ ---> Using cache
+ ---> 16afc3b0b270
+Step 4/8 : COPY docker-entrypoint.sh /bin
+ ---> 0c2ba851daac
+Step 5/8 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Running in 5c722c7b459c
+ ---> a091251ac78c
+Removing intermediate container 5c722c7b459c
+Step 6/8 : ENV APACHE_PORT 80
+ ---> Running in 1db6c9289585
+ ---> ee26038bbb41
+Removing intermediate container 1db6c9289585
+Step 7/8 : ENTRYPOINT docker-entrypoint.sh
+ ---> Running in ab63edd24677
+ ---> b46b1de7d601
+Removing intermediate container ab63edd24677
+Step 8/8 : CMD httpd -D FOREGROUND
+ ---> Running in 406396764a4c
+ ---> a37386df4850
+Removing intermediate container 406396764a4c
+Successfully built a37386df4850
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container run -d -e APACHE_PORT=9090 -p 9988:9090 alpine-apache
+5c5af3d57ca119d4ded35893ab4da08c911eef0306a37a2e638bda12c25769fe
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container run -d  -p 9987:80 alpine-apache
+d631edb89df8a6a2acd8113e6ec905c2aedb2649bb71e7412bcb33f90e69f879
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container exec 5c5af env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=5c5af3d57ca1
+APACHE_PORT=9090
+HOME=/root
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container exec d631edb89 env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=d631edb89df8
+APACHE_PORT=80
+HOME=/root
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
 
