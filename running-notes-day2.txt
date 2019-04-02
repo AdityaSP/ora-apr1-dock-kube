@@ -776,3 +776,201 @@ HOME=/root
 
 /c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
 
+
+------------------------------------------------------------------------------------------------------------
+
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cd
+
+/home/docker> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              5cb3aa00f899        3 weeks ago         5.53MB
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              2bcb04bdb83f        6 days ago          109MB
+nginx               alpine              32a037976344        3 weeks ago         16.1MB
+nginx               stable              e706cb01fa6b        4 weeks ago         109MB
+
+/home/docker>
+
+/home/docker> #docker image pull nginx
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              2bcb04bdb83f        6 days ago          109MB
+nginx               alpine              32a037976344        3 weeks ago         16.1MB
+nginx               stable              e706cb01fa6b        4 weeks ago         109MB
+
+/home/docker> docker image pull nginx:1.15
+1.15: Pulling from library/nginx
+Digest: sha256:c8a861b8a1eeef6d48955a6c6d5dff8e2580f13ff4d0f549e082e7c82a8617a2
+Status: Downloaded newer image for nginx:1.15
+
+/home/docker> docker image ls nginx
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1.15                2bcb04bdb83f        6 days ago          109MB
+nginx               latest              2bcb04bdb83f        6 days ago          109MB
+nginx               alpine              32a037976344        3 weeks ago         16.1MB
+nginx               stable              e706cb01fa6b        4 weeks ago         109MB
+
+/home/docker> docker image pull nginx:alpine
+alpine: Pulling from library/nginx
+8e402f1a9c57: Already exists
+56b0d9b69cc9: Pull complete
+b66c8bb200cc: Pull complete
+4ec77fc9c55f: Pull complete
+Digest: sha256:d5e177fed5e4f264e55b19b84bdc494078a06775612a4f60963f296756ea83aa
+Status: Downloaded newer image for nginx:alpine
+
+/home/docker>
+
+/home/docker> docker image ls alpine-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine-apache       latest              a37386df4850        24 minutes ago      10.4MB
+
+/home/docker> docker image push alpine-apache:latest
+The push refers to a repository [docker.io/library/alpine-apache]
+60651be006ef: Preparing
+a1a05e534003: Preparing
+9881ddc6de49: Preparing
+bcf2f368fe23: Preparing
+denied: requested access to the resource is denied
+
+/home/docker> docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: adityaprabhakara
+Password:
+Login Succeeded
+
+/home/docker> docker image push alpine-apache:latest
+The push refers to a repository [docker.io/library/alpine-apache]
+60651be006ef: Preparing
+a1a05e534003: Preparing
+9881ddc6de49: Preparing
+bcf2f368fe23: Preparing
+denied: requested access to the resource is denied
+
+/home/docker> docker image push adityaprabhakara/alpine-apache:latest
+The push refers to a repository [docker.io/adityaprabhakara/alpine-apache]
+An image does not exist locally with the tag: adityaprabhakara/alpine-apache
+
+/home/docker>
+
+/home/docker> docker image ls alpine-apache
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine-apache       latest              a37386df4850        27 minutes ago      10.4MB
+
+/home/docker> docker image tag alpine-apache adityaprabhakara/alpine-apache:1
+
+/home/docker> docker image tag alpine-apache adityaprabhakara/alpine-apache:latest
+
+/home/docker> docker image ls adityaprabhakara/alpine-apache
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+adityaprabhakara/alpine-apache   1                   a37386df4850        28 minutes ago      10.4MB
+adityaprabhakara/alpine-apache   latest              a37386df4850        28 minutes ago      10.4MB
+
+/home/docker> docker image push adityaprabhakara/alpine-apache:1
+The push refers to a repository [docker.io/adityaprabhakara/alpine-apache]
+60651be006ef: Pushed
+a1a05e534003: Pushed
+9881ddc6de49: Pushed
+bcf2f368fe23: Pushed
+1: digest: sha256:8f0146ff605956deca952cddb244015d1359cf64b1682c9a3e928be4b7ffde3e size: 1364
+
+/home/docker> docker image push adityaprabhakara/alpine-apache:latest
+The push refers to a repository [docker.io/adityaprabhakara/alpine-apache]
+60651be006ef: Layer already exists
+a1a05e534003: Layer already exists
+9881ddc6de49: Layer already exists
+bcf2f368fe23: Layer already exists
+latest: digest: sha256:8f0146ff605956deca952cddb244015d1359cf64b1682c9a3e928be4b7ffde3e size: 1364
+
+/home/docker> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              5cb3aa00f899        3 weeks ago         5.53MB
+
+/home/docker>
+
+/home/docker> docker image ls
+REPOSITORY                                                       TAG                 IMAGE ID            CREATED             SIZE
+adityaprabhakara/alpine-apache                                   1                   a37386df4850        34 minutes ago      10.4MB
+adityaprabhakara/alpine-apache                                   latest              a37386df4850        34 minutes ago      10.4MB
+alpine-apache                                                    latest              a37386df4850        34 minutes ago      10.4MB
+pinger                                                           latest              bc375f7f3f45        About an hour ago   10.4MB
+<none>                                                           <none>              ff55dd62f59f        2 hours ago         5.53MB
+<none>                                                           <none>              e4bb20c15fb8        2 hours ago         5.53MB
+<none>                                                           <none>              13f57eba45ba        2 hours ago         10.4MB
+alpine-apache-code                                               latest              3d232a5febdc        3 hours ago         10.4MB
+<none>                                                           <none>              ac08ce6cacda        21 hours ago        10.4MB
+nginx-code                                                       latest              3a34caaa9e51        22 hours ago        109MB
+nginx                                                            1.15                2bcb04bdb83f        6 days ago          109MB
+nginx                                                            latest              2bcb04bdb83f        6 days ago          109MB
+nginx                                                            alpine              0476319fbdad        6 days ago          20MB
+nginx                                                            <none>              32a037976344        3 weeks ago         16.1MB
+alpine                                                           latest              5cb3aa00f899        3 weeks ago         5.53MB
+tomcat                                                           7.0                 bf7d94e5177f        4 weeks ago         359MB
+nginx                                                            stable              e706cb01fa6b        4 weeks ago         109MB
+gcr.io/kubernetes-helm/tiller                                    v2.13.0-rc.1        3df95e340abd        6 weeks ago         82.1MB
+ghost                                                            1-alpine            4afbb5470d6c        7 weeks ago         450MB
+mysql                                                            5.7                 e47e309f72c8        7 weeks ago         372MB
+k8s.gcr.io/heapster-amd64                                        v1.5.3              f57c75cd7b0a        11 months ago       75.3MB
+prom/prometheus                                                  v2.1.0              c8ecf7c719c1        14 months ago       112MB
+gcr.io/google_containers/metrics-server-amd64                    v0.2.1              9801395070f3        15 months ago       42.5MB
+k8s.gcr.io/kubernetes-dashboard-amd64                            v1.8.1              e94d2f21bc0c        15 months ago       121MB
+k8s.gcr.io/heapster-amd64                                        v1.5.0              86a0ddc3a8c2        15 months ago       75.3MB
+quay.io/kubernetes-ingress-controller/nginx-ingress-controller   0.9.0               e56d6a14283a        16 months ago       190MB
+gcr.io/google-containers/kube-addon-manager                      v6.5                d166ffa9201a        16 months ago       79.5MB
+k8s.gcr.io/defaultbackend                                        1.4                 846921f0fe0e        17 months ago       4.84MB
+k8s.gcr.io/k8s-dns-sidecar-amd64                                 1.14.5              fed89e8b4248        18 months ago       41.8MB
+k8s.gcr.io/k8s-dns-kube-dns-amd64                                1.14.5              512cd7425a73        18 months ago       49.4MB
+k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64                           1.14.5              459944ce8cc4        18 months ago       41.4MB
+k8s.gcr.io/heapster-influxdb-amd64                               v1.3.3              577260d221db        19 months ago       12.5MB
+k8s.gcr.io/heapster-grafana-amd64                                v4.4.3              8cb3de219af7        19 months ago       152MB
+gcr.io/google_containers/pause-amd64                             3.0                 99e59f495ffa        2 years ago         747kB
+ananwaresystems/webarchive                                       1.0                 cf8d36136662        3 years ago         2.44MB
+
+/home/docker>
+
+/home/docker> docker image alpine
+
+Usage:  docker image COMMAND
+
+Manage images
+
+Options:
+      --help   Print usage
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+
+/home/docker> docker image ls alpine
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              5cb3aa00f899        3 weeks ago         5.53MB
+
+/home/docker>
+
+/home/docker> docker image pull adityaprabhakara/alpine-apache
+Using default tag: latest
+latest: Pulling from adityaprabhakara/alpine-apache
+Digest: sha256:8f0146ff605956deca952cddb244015d1359cf64b1682c9a3e928be4b7ffde3e
+Status: Image is up to date for adityaprabhakara/alpine-apache:latest
+
+/home/docker> docker container run -d adityaprabhakara/alpine-apache
+a4908bded3e8b2dbf10b1343a3dd33dc10dfb34d36f03690dd01084c586f3af1
+
+/home/docker>
+
