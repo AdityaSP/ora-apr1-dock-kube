@@ -281,3 +281,193 @@ COPY mypage.html /var/www/localhost/htdocs
 
 /c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
 
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+/c/Users/Dell lap/docker-workshop/apr1> mkdir pinger
+
+/c/Users/Dell lap/docker-workshop/apr1> cd pinger
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> ls
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> cat Dockerfile
+FROM alpine
+CMD ["ping", "-c4", "google.com"]
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker image build -t pinger .
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/2 : CMD ping -c4 google.com
+ ---> Running in 4f83445f9fcc
+ ---> e4bb20c15fb8
+Removing intermediate container 4f83445f9fcc
+Successfully built e4bb20c15fb8
+Successfully tagged pinger:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run -d pinger
+89e3a2f4f9512e6d18bf019b525b51dac1c222531953bbdd9453601b35cdb6cf
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container ls |grep -v k8s
+CONTAINER ID        IMAGE                                                                 COMMAND                  CREATED             STATUS              PORTS                                                                     NAMES
+33d725f12a45        alpine-apache                                                         "httpd -D FOREGROUND"    22 minutes ago      Up 22 minutes       0.0.0.0:80     80->80/tcp                                                 jovial_heisenberg
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container ls -a|grep -v k8     s
+CONTAINER ID        IMAGE                                                                 COMMAND                  CREATED             STATUS                                PORTS                                                                NAMES
+89e3a2f4f951        pinger                                                                "ping -c4 google.com"    17 seconds ago      Exited (0) 13 seconds ago                                                                                  stoic_jo     hnson
+33d725f12a45        alpine-apache                                                         "httpd -D FOREGROUND"    22 minutes ago      Up 22 minutes                         0.0.0.0:8080->80/tcp                                                 jovial_h     eisenberg
+16083e04f3fe        nginx                                                                 "nginx -g 'daemon ..."   19 hours ago        Exited (255) About an hour ago        80/tcp                                                               sad_shaw
+30603ca111c1        nginx                                                                 "nginx -g 'daemon ..."   19 hours ago        Exited (0) 19 hours ago                                                                                    affectio     nate_bassi
+7c246ad48f63        44aba7384ba9                                                          "httpd -D FOREGROUND"    19 hours ago        Exited (137) 19 hours ago                                                                                  sharp_pe     rlman
+eaf1445b501c        44aba7384ba9                                                          "sh"                     19 hours ago        Exited (0) 19 hours ago                                                                                    practica     l_jackson
+86137acb2772        44aba7384ba9                                                          "httpd"                  19 hours ago        Exited (0) 19 hours ago                                                                                    silly_go     ldwasser
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> #docker container run -d pinger       
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container logs 89e3a2f4f95     1
+PING google.com (172.217.26.174): 56 data bytes
+64 bytes from 172.217.26.174: seq=0 ttl=51 time=78.972 ms
+64 bytes from 172.217.26.174: seq=1 ttl=51 time=85.509 ms
+64 bytes from 172.217.26.174: seq=2 ttl=51 time=88.932 ms
+64 bytes from 172.217.26.174: seq=3 ttl=51 time=99.584 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 78.972/88.249/99.584 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run  pinger          PING google.com (172.217.26.174): 56 data bytes
+64 bytes from 172.217.26.174: seq=0 ttl=51 time=134.860 ms
+64 bytes from 172.217.26.174: seq=1 ttl=51 time=73.911 ms
+64 bytes from 172.217.26.174: seq=2 ttl=51 time=92.401 ms
+64 bytes from 172.217.26.174: seq=3 ttl=51 time=102.364 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 73.911/100.884/134.860 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm  pinger     PING google.com (172.217.163.174): 56 data bytes
+64 bytes from 172.217.163.174: seq=0 ttl=51 time=163.800 ms
+64 bytes from 172.217.163.174: seq=1 ttl=51 time=61.306 ms
+64 bytes from 172.217.163.174: seq=2 ttl=51 time=43.153 ms
+64 bytes from 172.217.163.174: seq=3 ttl=51 time=71.616 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 43.153/84.968/163.800 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> #docker container run --rm pinger ping -c4 yahoo.com
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker image history pinger
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+e4bb20c15fb8        12 minutes ago      /bin/sh -c #(nop)  CMD ["ping" "-c4" "goog...   0B
+5cb3aa00f899        3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm pinger ping -c4 yahoo.com
+PING yahoo.com (98.137.246.7): 56 data bytes
+64 bytes from 98.137.246.7: seq=0 ttl=48 time=335.663 ms
+64 bytes from 98.137.246.7: seq=1 ttl=48 time=392.524 ms
+64 bytes from 98.137.246.7: seq=2 ttl=48 time=704.512 ms
+64 bytes from 98.137.246.7: seq=3 ttl=48 time=906.506 ms
+
+--- yahoo.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 335.663/584.801/906.506 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm pinger ping -c4 oracle.com
+PING oracle.com (137.254.120.50): 56 data bytes
+64 bytes from 137.254.120.50: seq=0 ttl=240 time=336.697 ms
+64 bytes from 137.254.120.50: seq=1 ttl=240 time=1299.418 ms
+64 bytes from 137.254.120.50: seq=2 ttl=240 time=315.792 ms
+64 bytes from 137.254.120.50: seq=3 ttl=240 time=356.576 ms
+
+--- oracle.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 315.792/577.120/1299.418 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> cat Dockerfile
+FROM alpine
+ENTRYPOINT ["ping", "-c4"]
+CMD ["google.com"]
+# docker container run pinger
+# ping -c4 google.com
+# docker container run pinger yahoo.com
+# ping -c4 yahoo.com
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker image build -t pinger .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/3 : ENTRYPOINT ping -c4
+ ---> Running in 1fe9a1b411af
+ ---> a640aa30f475
+Removing intermediate container 1fe9a1b411af
+Step 3/3 : CMD google.com
+ ---> Running in 73478960c69b
+ ---> ff55dd62f59f
+Removing intermediate container 73478960c69b
+Successfully built ff55dd62f59f
+Successfully tagged pinger:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm pinger
+PING google.com (216.58.196.174): 56 data bytes
+64 bytes from 216.58.196.174: seq=0 ttl=51 time=67.995 ms
+64 bytes from 216.58.196.174: seq=1 ttl=51 time=284.630 ms
+64 bytes from 216.58.196.174: seq=2 ttl=51 time=56.417 ms
+64 bytes from 216.58.196.174: seq=3 ttl=51 time=59.332 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 56.417/117.093/284.630 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm pinger yahoo.com
+PING yahoo.com (98.138.219.231): 56 data bytes
+64 bytes from 98.138.219.231: seq=0 ttl=48 time=280.795 ms
+64 bytes from 98.138.219.231: seq=1 ttl=48 time=286.179 ms
+64 bytes from 98.138.219.231: seq=2 ttl=48 time=286.563 ms
+64 bytes from 98.138.219.231: seq=3 ttl=48 time=292.129 ms
+
+--- yahoo.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 280.795/286.416/292.129 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> cat Dockerfile
+FROM alpine
+ENTRYPOINT ["ping", "-c4"]
+CMD ["google.com"]
+# docker container run pinger
+# ping -c4 google.com
+# docker container run pinger yahoo.com
+# ping -c4 yahoo.com
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger> docker container run --rm pinger oracle.com
+PING oracle.com (137.254.120.50): 56 data bytes
+64 bytes from 137.254.120.50: seq=0 ttl=240 time=299.452 ms
+64 bytes from 137.254.120.50: seq=1 ttl=240 time=297.696 ms
+64 bytes from 137.254.120.50: seq=2 ttl=240 time=307.324 ms
+64 bytes from 137.254.120.50: seq=3 ttl=240 time=282.285 ms
+
+--- oracle.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 282.285/296.689/307.324 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+/c/Users/Dell lap/docker-workshop/apr1/pinger>
