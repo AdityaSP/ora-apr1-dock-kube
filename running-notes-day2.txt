@@ -1,1 +1,283 @@
+login as: docker
+docker@192.168.99.105's password:
+                         _             _
+            _         _ ( )           ( )
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __
+/' _ ` _ `\| |/' _ `\| || , <  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+
+$ export PS1='\n$PWD> '
+
+/home/docker> ls
+
+/home/docker> cd /c/Users/Dell\ lap/
+Display all 170 possibilities? (y or n)
+
+/home/docker> cd /c/Users/Dell\ lap/docker-workshop/apr1/
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ alpine-apache                    '~$dockers-slightedge-apr1-us.pptx'
+ dockers-slightedge-apr1-us.pptx
+
+/c/Users/Dell lap/docker-workshop/apr1>
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ alpine-apache                    '~$dockers-slightedge-apr1-us.pptx'
+ dockers-slightedge-apr1-us.pptx
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache/
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cd ..
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ alpine-apache                    '~$dockers-slightedge-apr1-us.pptx'
+ dockers-slightedge-apr1-us.pptx
+
+/c/Users/Dell lap/docker-workshop/apr1> mkdir alpine-apache-code
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache-code/
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> ls
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cat > mypage.html
+<h1> MyCode </h1>
+^C
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> ls
+mypage.html
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM alpine-apache
+ ---> 16afc3b0b270
+Step 2/2 : COPY mypage.html /var/www/localhost/htdocs
+ ---> 3d232a5febdc
+Successfully built 3d232a5febdc
+Successfully tagged alpine-apache-code:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cd ../..
+
+/c/Users/Dell lap/docker-workshop> ls
+'New folder'                                feb11        mysql.tar
+ al-ap                                      feb25        nginx-alpine.tar
+ apr1                                       ghost.tar    nginx.conf
+ bash-alpine                                index.html   pinger
+ code                                       jan21        spring-petclinic
+ command-dec24-2.txt                        jan28        ubuntu-nginx
+ command-withoutput-dec26-dec27-p6908.log   jan7         us-mar11
+ commanddec24-1.txt                         mar11        userjan11-csr.crt
+ day2                                       mar4         userjan11.pem
+ docker-compose.yml                         may9
+
+/c/Users/Dell lap/docker-workshop>
+
+/c/Users/Dell lap/docker-workshop> cd apr1/
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ alpine-apache        dockers-slightedge-apr1-us.pptx
+ alpine-apache-code  '~$dockers-slightedge-apr1-us.pptx'
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache-code/
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cat Dockerfile
+FROM alpine-apache
+COPY mypage1.html /var/www/localhost/htdocs
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> ls
+Dockerfile  mypage.html
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM alpine-apache
+ ---> 16afc3b0b270
+Step 2/2 : COPY mypage1.html /var/www/localhost/htdocs
+COPY failed: stat /var/lib/docker/tmp/docker-builder187064727/mypage1.html: no such file or directory
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code
+"docker image build" requires exactly 1 argument.
+See 'docker image build --help'.
+
+Usage:  docker image build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code $PWD
+"docker image build" requires exactly 1 argument.
+See 'docker image build --help'.
+
+Usage:  docker image build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM alpine-apache
+ ---> 16afc3b0b270
+Step 2/2 : COPY mypage1.html /var/www/localhost/htdocs
+COPY failed: stat /var/lib/docker/tmp/docker-builder893090314/mypage1.html: no such file or directory
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> docker image build -f Dockerfile -t alpine-apache-code .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM alpine-apache
+ ---> 16afc3b0b270
+Step 2/2 : COPY mypage.html /var/www/localhost/htdocs
+ ---> Using cache
+ ---> 3d232a5febdc
+Successfully built 3d232a5febdc
+Successfully tagged alpine-apache-code:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cd ..
+
+/c/Users/Dell lap/docker-workshop/apr1> ls
+ alpine-apache        dockers-slightedge-apr1-us.pptx
+ alpine-apache-code  '~$dockers-slightedge-apr1-us.pptx'
+
+/c/Users/Dell lap/docker-workshop/apr1>
+
+/c/Users/Dell lap/docker-workshop/apr1> docker image history alpine-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+16afc3b0b270        17 hours ago        /bin/sh -c apk add apache2                      3.59MB
+d49790d6ab41        17 hours ago        /bin/sh -c apk update                           1.31MB
+5cb3aa00f899        3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB
+
+/c/Users/Dell lap/docker-workshop/apr1> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+2bcb04bdb83f        6 days ago          /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B
+<missing>           6 days ago          /bin/sh -c #(nop)  EXPOSE 80                    0B
+<missing>           6 days ago          /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B
+<missing>           6 days ago          /bin/sh -c set -x  && apt-get update  && a...   54MB
+<missing>           6 days ago          /bin/sh -c #(nop)  ENV NJS_VERSION=1.15.10...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  ENV NGINX_VERSION=1.15....   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>           6 days ago          /bin/sh -c #(nop) ADD file:4fc310c0cb879c8...   55.3MB
+
+/c/Users/Dell lap/docker-workshop/apr1>
+
+/c/Users/Dell lap/docker-workshop/apr1> docker image history nginx
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+2bcb04bdb83f        6 days ago          /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  STOPSIGNAL SIGTERM           0B
+<missing>           6 days ago          /bin/sh -c #(nop)  EXPOSE 80                    0B
+<missing>           6 days ago          /bin/sh -c ln -sf /dev/stdout /var/log/ngi...   22B
+<missing>           6 days ago          /bin/sh -c set -x  && apt-get update  && a...   54MB
+<missing>           6 days ago          /bin/sh -c #(nop)  ENV NJS_VERSION=1.15.10...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  ENV NGINX_VERSION=1.15....   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  LABEL maintainer=NGINX ...   0B
+<missing>           6 days ago          /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>           6 days ago          /bin/sh -c #(nop) ADD file:4fc310c0cb879c8...   55.3MB
+
+/c/Users/Dell lap/docker-workshop/apr1>
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+CMD ["httpd", "-D", "FOREGROUND"]
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -f Dockerfile -t alpine-apache .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/4 : RUN apk update
+ ---> Using cache
+ ---> d49790d6ab41
+Step 3/4 : RUN apk add apache2
+ ---> Using cache
+ ---> 16afc3b0b270
+Step 4/4 : CMD httpd -D FOREGROUND
+ ---> Running in 8fd5dfde2f86
+ ---> 13f57eba45ba
+Removing intermediate container 8fd5dfde2f86
+Successfully built 13f57eba45ba
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image history alpine-apache
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+13f57eba45ba        17 seconds ago      /bin/sh -c #(nop)  CMD ["httpd" "-D" "FORE...   0B
+16afc3b0b270        18 hours ago        /bin/sh -c apk add apache2                      3.59MB
+d49790d6ab41        18 hours ago        /bin/sh -c apk update                           1.31MB
+5cb3aa00f899        3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B
+<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9...   5.53MB
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container ls |grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container run -d -p 8080:80 alpine-apache
+33d725f12a457100f341be206f58327851d1ba360c6e77a6f3b6114b3f92a127
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container ls |grep -v k8s
+CONTAINER ID        IMAGE                                                            COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+33d725f12a45        alpine-apache                                                    "httpd -D FOREGROUND"    7 seconds ago       Up 6 seconds        0.0.0.0:8080->80/tcp                                                 jovial_heisenberg
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+CMD ["httpd", "-D", "FOREGROUND"]
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cd ..
+
+/c/Users/Dell lap/docker-workshop/apr1> cd alpine-apache-code/
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cat Dockerfile
+FROM alpine-apache
+COPY mypage.html /var/www/localhost/htdocs
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code> cat mypage.html
+<h1> MyCode </h1>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache-code>
 
