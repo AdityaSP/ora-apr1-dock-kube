@@ -471,3 +471,181 @@ round-trip min/avg/max = 282.285/296.689/307.324 ms
 /c/Users/Dell lap/docker-workshop/apr1/pinger>
 
 /c/Users/Dell lap/docker-workshop/apr1/pinger>
+
+
+------------------------------------------------------------------------------------------------
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi docker-entrypoint.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 9000/" /etc/apache2/httpd.conf
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi script.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> chmod +x script.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat script.sh
+#!/bin/sh
+
+echo "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> script.sh hello there
+-bash: script.sh: command not found
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ./script.sh hello there
+hello there
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ./script.sh ping -c4 google.com
+ping -c4 google.com
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi ./script.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ./script.sh ping -c4 google.com
+ping -c4 google.com
+PING google.com (172.217.160.142): 56 data bytes
+64 bytes from 172.217.160.142: seq=0 ttl=52 time=58.436 ms
+64 bytes from 172.217.160.142: seq=1 ttl=52 time=49.742 ms
+64 bytes from 172.217.160.142: seq=2 ttl=52 time=50.407 ms
+64 bytes from 172.217.160.142: seq=3 ttl=52 time=33.534 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 33.534/48.029/58.436 ms
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat script.sh
+#!/bin/sh
+
+echo "$@"
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi docker-entrypoint.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 9000/" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -t pinger .
+Sending build context to Docker daemon  4.096kB
+Step 1/7 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/7 : RUN apk update
+ ---> Using cache
+ ---> d49790d6ab41
+Step 3/7 : RUN apk add apache2
+ ---> Using cache
+ ---> 16afc3b0b270
+Step 4/7 : COPY docker-entrypoint.sh /bin
+ ---> 6953cd089c16
+Step 5/7 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Running in b269b2efa4eb
+ ---> 50d6c80d32aa
+Removing intermediate container b269b2efa4eb
+Step 6/7 : ENTRYPOINT docker-entrypoint.sh
+ ---> Running in 43a13eaab556
+ ---> 914a1957f15f
+Removing intermediate container 43a13eaab556
+Step 7/7 : CMD httpd -D FOREGROUND
+ ---> Running in 36c0bb0ac07c
+ ---> bc375f7f3f45
+Removing intermediate container 36c0bb0ac07c
+Successfully built bc375f7f3f45
+Successfully tagged pinger:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker image build -t alpine-apache .
+Sending build context to Docker daemon  4.096kB
+Step 1/7 : FROM alpine
+ ---> 5cb3aa00f899
+Step 2/7 : RUN apk update
+ ---> Using cache
+ ---> d49790d6ab41
+Step 3/7 : RUN apk add apache2
+ ---> Using cache
+ ---> 16afc3b0b270
+Step 4/7 : COPY docker-entrypoint.sh /bin
+ ---> Using cache
+ ---> 6953cd089c16
+Step 5/7 : RUN chmod +x /bin/docker-entrypoint.sh
+ ---> Using cache
+ ---> 50d6c80d32aa
+Step 6/7 : ENTRYPOINT docker-entrypoint.sh
+ ---> Using cache
+ ---> 914a1957f15f
+Step 7/7 : CMD httpd -D FOREGROUND
+ ---> Using cache
+ ---> bc375f7f3f45
+Successfully built bc375f7f3f45
+Successfully tagged alpine-apache:latest
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> ls
+Dockerfile  docker-entrypoint.sh  script.sh
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container run --rm alpine env
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=90b0c17e9519
+HOME=/root
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> vi Dockerfile
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> docker container run -d -p 9999:9000 alpine-apache
+c1e200ff197fca61444858b95a9805c17ad823d3552c00e59f4d2b3d28d0da9a
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat Dockerfile
+FROM alpine
+RUN apk update
+RUN apk add apache2
+COPY docker-entrypoint.sh /bin
+RUN chmod +x /bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
+
+# docker-entrypoint.sh httpd -D FOREGROUND
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache> cat docker-entrypoint.sh
+#!/bin/sh
+sed -i "s/Listen 80/Listen 9000/" /etc/apache2/httpd.conf
+exec "$@"
+
+/c/Users/Dell lap/docker-workshop/apr1/alpine-apache>
+
+
