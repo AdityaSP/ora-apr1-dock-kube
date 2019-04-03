@@ -1,0 +1,78 @@
+Dell lap@Dell ~
+λ minikube start
+There is a newer version of minikube available (v1.0.0).  Download it here:
+https://github.com/kubernetes/minikube/releases/tag/v1.0.0
+
+To disable this notification, run the following:
+minikube config set WantUpdateNotification false
+Starting local Kubernetes v1.9.0 cluster...
+Starting VM...
+Getting VM IP address...
+Moving files into cluster...
+Setting up certs...
+Connecting to cluster...
+Setting up kubeconfig...
+Starting cluster components...
+Kubectl is now configured to use the cluster.
+Loading cached images from config file.
+Dell lap@Dell ~
+λ
+Dell lap@Dell ~
+λ
+Dell lap@Dell ~
+λ minikube status
+minikube: Running
+cluster: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.106
+Dell lap@Dell ~
+λ minikube ip
+192.168.99.106
+Dell lap@Dell ~
+λ
+Dell lap@Dell ~
+λ cd docker-workshop/apr1/
+Dell lap@Dell ~/docker-workshop/apr1
+λ ls
+'~$dockers-slightedge-apr1-us.pptx'   alpine-apache-code/               k8s/
+ alpine-apache/                       dockers-slightedge-apr1-us.pptx   pinger/
+Dell lap@Dell ~/docker-workshop/apr1
+λ cd k8s/
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ ls
+dep/  pod/  rc/  service/
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ cd pod/
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ ls
+pod-helloworld.yml
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ ls
+pod-helloworld.yml
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl get pods
+No resources found, use --show-all to see completed objects.
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl apply -f pod-helloworld.yml
+pod "my-nginx" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl get pods
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          7s
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl get pod
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          7m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl get po
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          7m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ kubectl get pods
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          44m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
+λ
