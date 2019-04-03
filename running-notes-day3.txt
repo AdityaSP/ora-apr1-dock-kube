@@ -76,3 +76,131 @@ NAME       READY     STATUS    RESTARTS   AGE
 my-nginx   1/1       Running   0          44m
 Dell lap@Dell ~/docker-workshop/apr1/k8s/pod
 λ
+
+
+------------------------------------------------------------------------------------
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl apply -f rc-helloworld.yml
+replicationcontroller "helloworld-controller" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get replicationcontroller
+NAME                    DESIRED   CURRENT   READY     AGE
+helloworld-controller   2         2         2         24s
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get rc
+NAME                    DESIRED   CURRENT   READY     AGE
+helloworld-controller   2         2         2         43s
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods
+NAME                          READY     STATUS    RESTARTS   AGE
+helloworld-controller-b2qw8   1/1       Running   0          1m
+helloworld-controller-hl6c8   1/1       Running   0          1m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl delete pod helloworld-controller-b2qw8
+pod "helloworld-controller-b2qw8" deleted
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods
+NAME                          READY     STATUS              RESTARTS   AGE
+helloworld-controller-fvdqr   0/1       ContainerCreating   0          <invalid>
+helloworld-controller-hl6c8   1/1       Running             0          2m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods
+NAME                          READY     STATUS    RESTARTS   AGE
+helloworld-controller-fvdqr   1/1       Running   0          58s
+helloworld-controller-hl6c8   1/1       Running   0          3m
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl scale rc helloworld-controller --replicas 5
+replicationcontroller "helloworld-controller" scaled
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods
+NAME                          READY     STATUS    RESTARTS   AGE
+helloworld-controller-6v7tt   1/1       Running   0          0s
+helloworld-controller-fvdqr   1/1       Running   0          1m
+helloworld-controller-hl6c8   1/1       Running   0          4m
+helloworld-controller-ntrwz   1/1       Running   0          0s
+helloworld-controller-trmn6   1/1       Running   0          0s
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods -o wide
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE
+helloworld-controller-6v7tt   1/1       Running   0          36s       172.17.0.17   minikube
+helloworld-controller-fvdqr   1/1       Running   0          2m        172.17.0.7    minikube
+helloworld-controller-hl6c8   1/1       Running   0          4m        172.17.0.10   minikube
+helloworld-controller-ntrwz   1/1       Running   0          36s       172.17.0.12   minikube
+helloworld-controller-trmn6   1/1       Running   0          36s       172.17.0.18   minikube
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl scale rc helloworld-controller --replicas 1
+replicationcontroller "helloworld-controller" scaled
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods -o wide
+NAME                          READY     STATUS        RESTARTS   AGE       IP            NODE
+helloworld-controller-6v7tt   0/1       Terminating   0          1m        172.17.0.17   minikube
+helloworld-controller-fvdqr   0/1       Terminating   0          2m        172.17.0.7    minikube
+helloworld-controller-hl6c8   1/1       Running       0          5m        172.17.0.10   minikube
+helloworld-controller-ntrwz   0/1       Terminating   0          1m        172.17.0.12   minikube
+helloworld-controller-trmn6   0/1       Terminating   0          1m        172.17.0.18   minikube
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods -o wide
+NAME                          READY     STATUS        RESTARTS   AGE       IP            NODE
+helloworld-controller-6v7tt   0/1       Terminating   0          1m        172.17.0.17   minikube
+helloworld-controller-hl6c8   1/1       Running       0          5m        172.17.0.10   minikube
+helloworld-controller-trmn6   0/1       Terminating   0          1m        172.17.0.18   minikube
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods -o wide
+NAME                          READY     STATUS    RESTARTS   AGE       IP            NODE
+helloworld-controller-hl6c8   1/1       Running   0          5m        172.17.0.10   minikube
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods --show-labels
+NAME                          READY     STATUS    RESTARTS   AGE       LABELS
+helloworld-controller-hl6c8   1/1       Running   0          7m        app=helloworld
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl delete -f rc-helloworld.yml
+replicationcontroller "helloworld-controller" deleted
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get pods
+No resources found, use --show-all to see completed objects.
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ kubectl get rc
+No resources found.
+Dell lap@Dell ~/docker-workshop/apr1/k8s/rc
+λ cd ..
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl apply -f pod/pod-helloworld.yml
+pod "my-nginx" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubeclt get pods
+bash: kubeclt: command not found
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME       READY     STATUS    RESTARTS   AGE
+my-nginx   1/1       Running   0          7s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl apply -f rc/rc-helloworld.yml
+replicationcontroller "helloworld-controller" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                          READY     STATUS    RESTARTS   AGE
+helloworld-controller-w5lmc   1/1       Running   0          10s
+my-nginx                      1/1       Running   0          50s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get rc
+NAME                    DESIRED   CURRENT   READY     AGE
+helloworld-controller   2         2         2         19s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pod --show-labels
+NAME                          READY     STATUS    RESTARTS   AGE       LABELS
+helloworld-controller-w5lmc   1/1       Running   0          59s       app=helloworld
+my-nginx                      1/1       Running   0          1m        app=helloworld
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl delete pod my-nginx
+pod "my-nginx" deleted
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pod --show-labels
+NAME                          READY     STATUS    RESTARTS   AGE       LABELS
+helloworld-controller-px8mf   1/1       Running   0          0s        app=helloworld
+helloworld-controller-w5lmc   1/1       Running   0          2m        app=helloworld
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ
