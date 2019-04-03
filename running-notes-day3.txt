@@ -204,3 +204,211 @@ helloworld-controller-px8mf   1/1       Running   0          0s        app=hello
 helloworld-controller-w5lmc   1/1       Running   0          2m        app=helloworld
 Dell lap@Dell ~/docker-workshop/apr1/k8s
 λ
+
+
+-----------------------------------------------------------------------------------------------------------------
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl apply -f dep/dep-helloworld.yml --record
+deployment "helloworld-dep" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get deploy
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+helloworld-dep   1         1         1            1           11s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-89x6v   1/1       Running   0          32s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl scale deploy helloworld-dep --replicas 5
+deployment "helloworld-dep" scaled
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-89x6v   1/1       Running   0          2m
+helloworld-dep-5cdb68cc76-bc6lt   1/1       Running   0          9s
+helloworld-dep-5cdb68cc76-dfkgz   1/1       Running   0          9s
+helloworld-dep-5cdb68cc76-lbdfs   1/1       Running   0          9s
+helloworld-dep-5cdb68cc76-zwt77   1/1       Running   0          9s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get deploy
+NAME             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+helloworld-dep   5         5         5            5           3m
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get replicaset
+NAME                        DESIRED   CURRENT   READY     AGE
+helloworld-dep-5cdb68cc76   5         5         5         3m
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods --show-labels
+NAME                              READY     STATUS    RESTARTS   AGE       LABELS
+helloworld-dep-5cdb68cc76-89x6v   1/1       Running   0          5m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-bc6lt   1/1       Running   0          3m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-dfkgz   1/1       Running   0          3m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-lbdfs   1/1       Running   0          3m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-zwt77   1/1       Running   0          3m        app=helloworld,pod-template-hash=1786247732
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl create -f pod/pod-helloworld.yml
+pod "my-nginx" created
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods --show-labels
+NAME                              READY     STATUS              RESTARTS   AGE       LABELS
+helloworld-dep-5cdb68cc76-89x6v   1/1       Running             0          6m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-bc6lt   1/1       Running             0          4m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-dfkgz   1/1       Running             0          4m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-lbdfs   1/1       Running             0          4m        app=helloworld,pod-template-hash=1786247732
+helloworld-dep-5cdb68cc76-zwt77   1/1       Running             0          4m        app=helloworld,pod-template-hash=1786247732
+my-nginx                          0/1       ContainerCreating   0          0s        app=helloworld
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl delete pod my-nginx
+pod "my-nginx" deleted
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl scale deploy helloworld-dep --replicas 10
+deployment "helloworld-dep" scaled
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ #kubect set image deploy helloworld-dep web=nginx --record
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout status deploy helloworld-dep
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ #kubectl set image deploy helloworld-dep web=nginx --record
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-89x6v   1/1       Running   0          11m
+helloworld-dep-5cdb68cc76-9vr5j   1/1       Running   0          3m
+helloworld-dep-5cdb68cc76-bc6lt   1/1       Running   0          9m
+helloworld-dep-5cdb68cc76-dfkgz   1/1       Running   0          9m
+helloworld-dep-5cdb68cc76-hk6zh   1/1       Running   0          3m
+helloworld-dep-5cdb68cc76-lbdfs   1/1       Running   0          9m
+helloworld-dep-5cdb68cc76-mpm9g   1/1       Running   0          3m
+helloworld-dep-5cdb68cc76-mvrz8   1/1       Running   0          3m
+helloworld-dep-5cdb68cc76-tnk2v   1/1       Running   0          3m
+helloworld-dep-5cdb68cc76-zwt77   1/1       Running   0          9m
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl describe pod helloworld-dep-5cdb68cc76-89x6v | grep -i image
+    Image:          nginx:alpine
+    Image ID:       docker-pullable://nginx@sha256:d5e177fed5e4f264e55b19b84bdc494078a06775612a4f60963f296756ea83aa
+  Normal  Pulled                 12m   kubelet, minikube  Container image "nginx:alpine" already present on machine
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout status deploy helloworld-dep
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl set image deploy helloworld-dep web=nginx --record
+deployment "helloworld-dep" image updated
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout status deploy helloworld-dep
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 9 of 10 updated replicas are available...
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                             READY     STATUS    RESTARTS   AGE
+helloworld-dep-6bbc9d5b5-6f67j   1/1       Running   0          36s
+helloworld-dep-6bbc9d5b5-8zq4l   1/1       Running   0          30s
+helloworld-dep-6bbc9d5b5-hcbgr   1/1       Running   0          40s
+helloworld-dep-6bbc9d5b5-j8w5h   1/1       Running   0          23s
+helloworld-dep-6bbc9d5b5-jfdwv   1/1       Running   0          24s
+helloworld-dep-6bbc9d5b5-mswlh   1/1       Running   0          36s
+helloworld-dep-6bbc9d5b5-qgll7   1/1       Running   0          17s
+helloworld-dep-6bbc9d5b5-qjd7k   1/1       Running   0          40s
+helloworld-dep-6bbc9d5b5-qn5x6   1/1       Running   0          29s
+helloworld-dep-6bbc9d5b5-wbbnh   1/1       Running   0          16s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl describe pod helloworld-dep-6bbc9d5b5-6f67j | grep -i image
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:c8a861b8a1eeef6d48955a6c6d5dff8e2580f13ff4d0f549e082e7c82a8617a2
+  Normal  Pulled                 47s   kubelet, minikube  Container image "nginx" already present on machine
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout history deploy helloworld-dep
+deployments "helloworld-dep"
+REVISION  CHANGE-CAUSE
+1         kubectl.exe scale deploy helloworld-dep --replicas=10
+2         kubectl.exe set image deploy helloworld-dep web=nginx --record=true
+
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout undo deploy helloworld-dep --to-revision 1
+deployment "helloworld-dep"
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl rollout status deploy helloworld-dep
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 9 of 10 updated replicas are available...
+deployment "helloworld-dep" successfully rolled out
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl get pods
+NAME                              READY     STATUS    RESTARTS   AGE
+helloworld-dep-5cdb68cc76-26jx5   1/1       Running   0          22s
+helloworld-dep-5cdb68cc76-7jkb6   1/1       Running   0          43s
+helloworld-dep-5cdb68cc76-8dgw8   1/1       Running   0          12s
+helloworld-dep-5cdb68cc76-b865g   1/1       Running   0          42s
+helloworld-dep-5cdb68cc76-f9zv5   1/1       Running   0          38s
+helloworld-dep-5cdb68cc76-h2529   1/1       Running   0          22s
+helloworld-dep-5cdb68cc76-jd7xx   1/1       Running   0          33s
+helloworld-dep-5cdb68cc76-lgcmg   1/1       Running   0          7s
+helloworld-dep-5cdb68cc76-sn6kb   1/1       Running   0          14s
+helloworld-dep-5cdb68cc76-vck78   1/1       Running   0          36s
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ kubectl describe pod helloworld-dep-5cdb68cc76-26jx5 | grep -i image
+    Image:          nginx:alpine
+    Image ID:       docker-pullable://nginx@sha256:d5e177fed5e4f264e55b19b84bdc494078a06775612a4f60963f296756ea83aa
+  Normal  Pulled                 34s   kubelet, minikube  Container image "nginx:alpine" already present on machine
+Dell lap@Dell ~/docker-workshop/apr1/k8s
+λ
