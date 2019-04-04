@@ -1,0 +1,268 @@
+login as: vagrant
+vagrant@192.167.10.71's password:
+Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-131-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+vagrant@k8snode1:~$ ping google.com
+PING google.com (172.217.26.206) 56(84) bytes of data.
+64 bytes from maa03s23-in-f206.1e100.net (172.217.26.206): icmp_seq=1 ttl=54 tim                                          e=17.0 ms
+64 bytes from maa03s23-in-f206.1e100.net (172.217.26.206): icmp_seq=2 ttl=54 tim                                          e=13.5 ms
+64 bytes from maa03s23-in-f206.1e100.net (172.217.26.206): icmp_seq=3 ttl=54 tim                                          e=20.0 ms
+^C
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 13.531/16.876/20.065/2.674 ms
+vagrant@k8snode1:~$ ping 192.167.10.70
+PING 192.167.10.70 (192.167.10.70) 56(84) bytes of data.
+64 bytes from 192.167.10.70: icmp_seq=1 ttl=64 time=0.629 ms
+64 bytes from 192.167.10.70: icmp_seq=2 ttl=64 time=0.481 ms
+^C
+--- 192.167.10.70 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 999ms
+rtt min/avg/max/mdev = 0.481/0.555/0.629/0.074 ms
+vagrant@k8snode1:~$
+vagrant@k8snode1:~$ sudo su
+root@k8snode1:/home/vagrant# vi install.sh
+root@k8snode1:/home/vagrant# chmod +x install.sh
+root@k8snode1:/home/vagrant# ./install.sh
+installing docker
+Get:1 http://security.ubuntu.com/ubuntu xenial-security In                                                                Release [109 kB]
+Hit:2 http://archive.ubuntu.com/ubuntu xenial InRelease
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRe                                                                lease [109 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-backports In                                                                Release [107 kB]
+Get:5 http://security.ubuntu.com/ubuntu xenial-security/ma                                                                in amd64 Packages [621 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 Packages [920 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 i386 Packages [804 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 Translation-en [370 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/univ                                                                erse amd64 Packages [738 kB]
+Get:10 http://archive.ubuntu.com/ubuntu xenial-updates/uni                                                                verse i386 Packages [676 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial-updates/uni                                                                verse Translation-en [305 kB]
+Get:12 http://archive.ubuntu.com/ubuntu xenial-updates/mul                                                                tiverse amd64 Packages [16.6 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial-updates/mul                                                                tiverse i386 Packages [15.8 kB]
+Get:14 http://security.ubuntu.com/ubuntu xenial-security/m                                                                ain i386 Packages [521 kB]
+Get:15 http://security.ubuntu.com/ubuntu xenial-security/m                                                                ain Translation-en [256 kB]
+Get:16 http://security.ubuntu.com/ubuntu xenial-security/u                                                                niverse amd64 Packages [429 kB]
+Get:17 http://security.ubuntu.com/ubuntu xenial-security/u                                                                niverse i386 Packages [373 kB]
+Get:18 http://security.ubuntu.com/ubuntu xenial-security/u                                                                niverse Translation-en [172 kB]
+Get:19 http://security.ubuntu.com/ubuntu xenial-security/m                                                                ultiverse amd64 Packages [5,604 B]
+Get:20 http://security.ubuntu.com/ubuntu xenial-security/m                                                                ultiverse i386 Packages [5,764 B]
+Get:21 http://security.ubuntu.com/ubuntu xenial-security/m                                                                ultiverse Translation-en [2,676 B]
+Fetched 6,557 kB in 7s (858 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  libcurl3-gnutls python3-software-properties
+Recommended packages:
+  unattended-upgrades
+The following packages will be upgraded:
+  apt-transport-https ca-certificates curl
+  libcurl3-gnutls python3-software-properties
+  software-properties-common
+6 upgraded, 0 newly installed, 0 to remove and 63 not upgr                                                                aded.
+Need to get 546 kB of archives.
+After this operation, 0 B of additional disk space will be                                                                 used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 curl amd64 7.47.0-1ubuntu2.12 [139 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 libcurl3-gnutls amd64 7.47.0-1ubuntu2.12 [185 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 apt-transport-https amd64 1.2.29ubuntu0.1 [26.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 ca-certificates all 20170717~16.04.2 [167 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 software-properties-common all 0.96.20.8 [9,440 B]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 python3-software-properties all 0.96.20.8 [20.2 kB]
+Fetched 546 kB in 1s (292 kB/s)
+Preconfiguring packages ...
+(Reading database ... 38412 files and directories currentl                                                                y installed.)
+Preparing to unpack .../curl_7.47.0-1ubuntu2.12_amd64.deb                                                                 ...
+Unpacking curl (7.47.0-1ubuntu2.12) over (7.47.0-1ubuntu2.                                                                11) ...
+Preparing to unpack .../libcurl3-gnutls_7.47.0-1ubuntu2.12                                                                _amd64.deb ...
+Unpacking libcurl3-gnutls:amd64 (7.47.0-1ubuntu2.12) over                                                                 (7.47.0-1ubuntu2.11) ...
+Preparing to unpack .../apt-transport-https_1.2.29ubuntu0.                                                                1_amd64.deb ...
+Unpacking apt-transport-https (1.2.29ubuntu0.1) over (1.2.                                                                29) ...
+Preparing to unpack .../ca-certificates_20170717~16.04.2_a                                                                ll.deb ...
+Unpacking ca-certificates (20170717~16.04.2) over (2017071                                                                7~16.04.1) ...
+Preparing to unpack .../software-properties-common_0.96.20                                                                .8_all.deb ...
+Unpacking software-properties-common (0.96.20.8) over (0.9                                                                6.20.7) ...
+Preparing to unpack .../python3-software-properties_0.96.2                                                                0.8_all.deb ...
+Unpacking python3-software-properties (0.96.20.8) over (0.                                                                96.20.7) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for dbus (1.10.6-1ubuntu3.3) ...
+Setting up libcurl3-gnutls:amd64 (7.47.0-1ubuntu2.12) ...
+Setting up curl (7.47.0-1ubuntu2.12) ...
+Setting up apt-transport-https (1.2.29ubuntu0.1) ...
+Setting up ca-certificates (20170717~16.04.2) ...
+Setting up python3-software-properties (0.96.20.8) ...
+Setting up software-properties-common (0.96.20.8) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for ca-certificates (20170717~16.04.2)                                                                 ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+OK
+Get:1 https://download.docker.com/linux/ubuntu xenial InRe                                                                lease [66.2 kB]
+Hit:2 http://security.ubuntu.com/ubuntu xenial-security In                                                                Release
+Hit:3 http://archive.ubuntu.com/ubuntu xenial InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu xenial-updates InRe                                                                lease
+Get:5 https://download.docker.com/linux/ubuntu xenial/stab                                                                le amd64 Packages [7,361 B]
+Hit:6 http://archive.ubuntu.com/ubuntu xenial-backports In                                                                Release
+Fetched 73.6 kB in 1s (51.2 kB/s)
+Reading package lists... Done
+N: Skipping acquire of configured file 'stable/binary-i386                                                                /Packages' as repository 'https://download.docker.com/linu                                                                x/ubuntu xenial InRelease' doesn't support architecture 'i                                                                386'
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  aufs-tools cgroupfs-mount libltdl7
+Suggested packages:
+  mountall
+The following NEW packages will be installed:
+  aufs-tools cgroupfs-mount docker-ce libltdl7
+0 upgraded, 4 newly installed, 0 to remove and 63 not upgr                                                                aded.
+Need to get 19.5 MB of archives.
+After this operation, 89.4 MB of additional disk space wil                                                                l be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial/universe amd                                                                64 aufs-tools amd64 1:3.2+20130722-1.1ubuntu1 [92.9 kB]
+Get:2 https://download.docker.com/linux/ubuntu xenial/stab                                                                le amd64 docker-ce amd64 17.03.3~ce-0~ubuntu-xenial [19.4                                                                 MB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial/universe amd                                                                64 cgroupfs-mount all 1.2 [4,970 B]
+Get:4 http://archive.ubuntu.com/ubuntu xenial/main amd64 l                                                                ibltdl7 amd64 2.4.6-0.1 [38.3 kB]
+Fetched 19.5 MB in 6s (3,241 kB/s)
+Selecting previously unselected package aufs-tools.
+(Reading database ... 38412 files and directories currentl                                                                y installed.)
+Preparing to unpack .../aufs-tools_1%3a3.2+20130722-1.1ubu                                                                ntu1_amd64.deb ...
+Unpacking aufs-tools (1:3.2+20130722-1.1ubuntu1) ...
+Selecting previously unselected package cgroupfs-mount.
+Preparing to unpack .../cgroupfs-mount_1.2_all.deb ...
+Unpacking cgroupfs-mount (1.2) ...
+Selecting previously unselected package libltdl7:amd64.
+Preparing to unpack .../libltdl7_2.4.6-0.1_amd64.deb ...
+Unpacking libltdl7:amd64 (2.4.6-0.1) ...
+Selecting previously unselected package docker-ce.
+Preparing to unpack .../docker-ce_17.03.3~ce-0~ubuntu-xeni                                                                al_amd64.deb ...
+Unpacking docker-ce (17.03.3~ce-0~ubuntu-xenial) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Processing triggers for systemd (229-4ubuntu21.10) ...
+Setting up aufs-tools (1:3.2+20130722-1.1ubuntu1) ...
+Setting up cgroupfs-mount (1.2) ...
+Setting up libltdl7:amd64 (2.4.6-0.1) ...
+Setting up docker-ce (17.03.3~ce-0~ubuntu-xenial) ...
+Processing triggers for libc-bin (2.23-0ubuntu10) ...
+Processing triggers for systemd (229-4ubuntu21.10) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+installing kubeadm and kubectl
+Hit:1 https://download.docker.com/linux/ubuntu xenial InRe                                                                lease
+Hit:2 http://security.ubuntu.com/ubuntu xenial-security In                                                                Release
+Hit:3 http://archive.ubuntu.com/ubuntu xenial InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu xenial-updates InRe                                                                lease
+Hit:5 http://archive.ubuntu.com/ubuntu xenial-backports In                                                                Release
+Reading package lists... Done
+N: Skipping acquire of configured file 'stable/binary-i386                                                                /Packages' as repository 'https://download.docker.com/linu                                                                x/ubuntu xenial InRelease' doesn't support architecture 'i                                                                386'
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+apt-transport-https is already the newest version (1.2.29u                                                                buntu0.1).
+0 upgraded, 0 newly installed, 0 to remove and 64 not upgr                                                                aded.
+OK
+Hit:1 https://download.docker.com/linux/ubuntu xenial InRe                                                                lease
+Hit:2 http://security.ubuntu.com/ubuntu xenial-security In                                                                Release
+Hit:3 http://archive.ubuntu.com/ubuntu xenial InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu xenial-updates InRe                                                                lease
+Hit:6 http://archive.ubuntu.com/ubuntu xenial-backports In                                                                Release
+Get:5 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial InRelease [8,993 B]
+Get:7 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 Packages [24.1 kB]
+Fetched 33.1 kB in 2s (16.1 kB/s)
+Reading package lists... Done
+N: Skipping acquire of configured file 'stable/binary-i386                                                                /Packages' as repository 'https://download.docker.com/linu                                                                x/ubuntu xenial InRelease' doesn't support architecture 'i                                                                386'
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  conntrack cri-tools ebtables kubernetes-cni socat
+The following NEW packages will be installed:
+  conntrack cri-tools ebtables kubeadm kubectl kubelet
+  kubernetes-cni socat
+0 upgraded, 8 newly installed, 0 to remove and 64 not upgr                                                                aded.
+Need to get 46.0 MB of archives.
+After this operation, 264 MB of additional disk space will                                                                 be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 c                                                                onntrack amd64 1:1.4.3-3 [27.3 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates/main                                                                 amd64 ebtables amd64 2.0.10.4-3.4ubuntu2.16.04.2 [79.9 kB                                                                ]
+Get:8 http://archive.ubuntu.com/ubuntu xenial/universe amd                                                                64 socat amd64 1.7.3.1-1 [321 kB]
+Get:2 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 cri-tools amd64 1.12.0-00 [5,343 kB]
+Get:4 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 kubernetes-cni amd64 0.6.0-00 [5,910 kB]
+Get:5 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 kubelet amd64 1.13.4-00 [19.1 MB]
+Get:6 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 kubectl amd64 1.13.4-00 [7,858 kB]
+Get:7 https://packages.cloud.google.com/apt kubernetes-xen                                                                ial/main amd64 kubeadm amd64 1.13.4-00 [7,366 kB]
+Fetched 46.0 MB in 10s (4,184 kB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 38687 files and directories currentl                                                                y installed.)
+Preparing to unpack .../conntrack_1%3a1.4.3-3_amd64.deb ..                                                                .
+Unpacking conntrack (1:1.4.3-3) ...
+Selecting previously unselected package cri-tools.
+Preparing to unpack .../cri-tools_1.12.0-00_amd64.deb ...
+Unpacking cri-tools (1.12.0-00) ...
+Selecting previously unselected package ebtables.
+Preparing to unpack .../ebtables_2.0.10.4-3.4ubuntu2.16.04                                                                .2_amd64.deb ...
+Unpacking ebtables (2.0.10.4-3.4ubuntu2.16.04.2) ...
+Selecting previously unselected package kubernetes-cni.
+Preparing to unpack .../kubernetes-cni_0.6.0-00_amd64.deb                                                                 ...
+Unpacking kubernetes-cni (0.6.0-00) ...
+Selecting previously unselected package socat.
+Preparing to unpack .../socat_1.7.3.1-1_amd64.deb ...
+Unpacking socat (1.7.3.1-1) ...
+Selecting previously unselected package kubelet.
+Preparing to unpack .../kubelet_1.13.4-00_amd64.deb ...
+Unpacking kubelet (1.13.4-00) ...
+Selecting previously unselected package kubectl.
+Preparing to unpack .../kubectl_1.13.4-00_amd64.deb ...
+Unpacking kubectl (1.13.4-00) ...
+Selecting previously unselected package kubeadm.
+Preparing to unpack .../kubeadm_1.13.4-00_amd64.deb ...
+Unpacking kubeadm (1.13.4-00) ...
+Processing triggers for man-db (2.7.5-1) ...
+Processing triggers for systemd (229-4ubuntu21.10) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Setting up conntrack (1:1.4.3-3) ...
+Setting up cri-tools (1.12.0-00) ...
+Setting up ebtables (2.0.10.4-3.4ubuntu2.16.04.2) ...
+update-rc.d: warning: start and stop actions are no longer                                                                 supported; falling back to defaults
+Setting up kubernetes-cni (0.6.0-00) ...
+Setting up socat (1.7.3.1-1) ...
+Setting up kubelet (1.13.4-00) ...
+Setting up kubectl (1.13.4-00) ...
+Setting up kubeadm (1.13.4-00) ...
+Processing triggers for systemd (229-4ubuntu21.10) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+root@k8snode1:/home/vagrant#
+root@k8snode1:/home/vagrant# docker container ls
+CONTAINER ID        IMAGE               COMMAND                                                                             CREATED             STATUS              PORTS                                                                               NAMES
+root@k8snode1:/home/vagrant#  kubeadm join 192.167.10.70:6                                                                443 --token 48ibh9.hk6xbj9z4htsyjgs --discovery-token-ca-c                                                                ert-hash sha256:8100625af9ad3705736a6812a68bda0ea87d23fe9e                                                                8344871693ee6ec2c2f2ff
+[preflight] Running pre-flight checks
+[discovery] Trying to connect to API Server "192.167.10.70                                                                :6443"
+[discovery] Created cluster-info discovery client, request                                                                ing info from "https://192.167.10.70:6443"
+[discovery] Requesting info from "https://192.167.10.70:64                                                                43" again to validate TLS against the pinned public key
+[discovery] Cluster info signature and contents are valid                                                                 and TLS certificate validates against pinned roots, will u                                                                se API Server "192.167.10.70:6443"
+[discovery] Successfully established connection with API S                                                                erver "192.167.10.70:6443"
+[join] Reading configuration from the cluster...
+[join] FYI: You can look at this config file with 'kubectl                                                                 -n kube-system get cm kubeadm-config -oyaml'
+[kubelet] Downloading configuration for the kubelet from t                                                                he "kubelet-config-1.13" ConfigMap in the kube-system name                                                                space
+[kubelet-start] Writing kubelet configuration to file "/va                                                                r/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flag                                                                s to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Activating the kubelet service
+[tlsbootstrap] Waiting for the kubelet to perform the TLS                                                                 Bootstrap...
+[patchnode] Uploading the CRI Socket information "/var/run                                                                /dockershim.sock" to the Node API object "k8snode1" as an                                                                 annotation
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a                                                                 response was received.
+* The Kubelet was informed of the new secure connection de                                                                tails.
+
+Run 'kubectl get nodes' on the master to see this node joi                                                                n the cluster.
+
+root@k8snode1:/home/vagrant#
